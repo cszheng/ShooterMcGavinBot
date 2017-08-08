@@ -1,0 +1,20 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        
+        {
+            "name": ".NET Core Launch (console)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceRoot}/ShooterMcGavinBot/bin/Debug/netcoreapp1.1/ShooterMcGavinBot.dll",
+            "args": [],
+            "cwd": "${workspaceRoot}/ShooterMcGavinBot",
+            "stopAtEntry": false,
+            "console": "internalConsole",
+            "env" : {
+                "DOTNETCORE_ENVIRONMENT": "Development"
+            }
+        }        
+    ]
+}

@@ -1,0 +1,7 @@
+{
+    "common_section_breaks": "**--------------------------------------------------------------------------------**",
+    "common_command_header": "__**Commands:**__",
+    "common_command_description": "**{0}** - *{1}*",
+    "common_method_description": "**{0}** - *{1}*",
+    "common_parameter_description": "    __{0}__ - *{1}*"
+}

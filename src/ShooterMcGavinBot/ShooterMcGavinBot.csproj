@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Discord.Net" Version="1.0.1"/>
+    <PackageReference Include="System.Reflection.Extensions" Version="4.3.0"/>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="1.1.2"/>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="1.1.1"/>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="1.1.2"/>
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="1.1.2"/>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3"/>
+  </ItemGroup>
+</Project>
