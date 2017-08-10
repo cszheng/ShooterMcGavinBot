@@ -1,11 +1,5 @@
 {
   "log_level": "info",
   "command_prefix": "!",
-  "bot_string_files": 
-  [
-    {
-      "key": "response",
-      "path": "botstrings/response.json"
-    }
-  ]
+  "bot_strings_path": "_botstrings"
 }

@@ -27,13 +27,13 @@ namespace ShooterMcGavinBot.Services
         {
             //filter type by namespace
             var typeList = _assembly.ExportedTypes
-                                    .Where((t) => { return t.Namespace == "ShooterMcGavinBot.Modules"; })
+                                    .Where(t => t.Namespace == type.Namespace )
                                     .ToArray();
                                     
             var responseBuilder = new StringBuilder();
             if(typeList.Length > 0) 
             {
-                var commandHeader = _botStrings.getString("response", "common_command_header");
+                var commandHeader = _botStrings.getString("common", "command_header");
                 responseBuilder.Append((commandHeader));
                 responseBuilder.AppendLine();
             }

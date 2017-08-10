@@ -8,19 +8,19 @@ namespace ShooterMcGavinBot.Common
 {
     public class BotStrings
     {
-        protected Dictionary<string, string> _botStrings;
+        public Dictionary<string, string> Container { get; private set; }
         
         public BotStrings(string jsonFilePath)
         {
             var jsonString = File.ReadAllText(jsonFilePath);
-            _botStrings = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonString);
-            _botStrings.ToImmutableDictionary();
+            Container = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonString);
+            Container.ToImmutableDictionary();
         }
 
         public string getString(string key)
         {
-            if (_botStrings.ContainsKey(key)) {
-                return _botStrings[key];
+            if (Container.ContainsKey(key)) {
+                return Container[key];
             }            
             return null;
         }

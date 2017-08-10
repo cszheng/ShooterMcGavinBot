@@ -38,7 +38,7 @@ namespace ShooterMcGavinBot.Services
             var paramName = parameterInfo.Name;
             var summAttrib = parameterInfo.GetCustomAttribute(typeof(SummaryAttribute)) as SummaryAttribute;
             //get parameter template
-            var paramTmpl = _botStrings.getString("response", "common_parameter_description");
+            var paramTmpl = _botStrings.getString("common", "parameter_description");
             return String.Format(paramTmpl, paramName, summAttrib.Text);
         }
 
@@ -48,7 +48,7 @@ namespace ShooterMcGavinBot.Services
             var cmnAttrib = methodInfo.GetCustomAttribute(typeof(CommandAttribute)) as CommandAttribute;
             var sumAttrib = methodInfo.GetCustomAttribute(typeof(SummaryAttribute)) as SummaryAttribute;
             //get method template
-            var cmdDescTmpl = _botStrings.getString("response", "common_method_description");
+            var cmdDescTmpl = _botStrings.getString("common", "method_description");
             return String.Format(cmdDescTmpl, cmnAttrib.Text, sumAttrib.Text);
         }
         
@@ -58,20 +58,16 @@ namespace ShooterMcGavinBot.Services
             var grpAttrib = typeInfo.GetCustomAttribute(typeof(GroupAttribute)) as GroupAttribute;
             var sumAttrib = typeInfo.GetCustomAttribute(typeof(SummaryAttribute)) as SummaryAttribute;
             //get description template
-            var cmdDescTmpl = _botStrings.getString("response", "common_command_description");
+            var cmdDescTmpl = _botStrings.getString("common", "command_description");
             //build string with tempate
             return String.Format(cmdDescTmpl, grpAttrib.Prefix, sumAttrib.Text);
         }
 
         public virtual Embed help(Type typeObj)
         {
-            var sectBreaks = _botStrings.getString("response", "common_section_breaks");
+            var sectBreaks = _botStrings.getString("common", "section_breaks");
             var responseBuilder = new StringBuilder();
             //build response with tempates
-            // responseBuilder.Append(BuildCommandDescription(typeObj.GetTypeInfo()));
-            // responseBuilder.AppendLine();
-            // responseBuilder.Append((sectBreaks));
-            // responseBuilder.AppendLine();
             //get methods
             var methods = GetCommandMethods(typeObj);
             foreach (var method in methods)
