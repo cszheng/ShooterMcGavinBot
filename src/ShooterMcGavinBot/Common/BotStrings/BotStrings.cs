@@ -19,10 +19,10 @@ namespace ShooterMcGavinBot.Common
 
         public string getString(string key)
         {
-            if (Container.ContainsKey(key)) {
-                return Container[key];
+            if (!Container.ContainsKey(key)) {
+                throw new BotGeneraicException($"{key} botstring not found");
             }            
-            return null;
+            return Container[key];
         }
     }
 }

@@ -28,16 +28,15 @@ namespace ShooterMcGavinBot.Common
 
         public string getString(string containerKey, string stringKey)
         {
-            if (Containers.ContainsKey(containerKey)) {
-                return Containers[containerKey].getString(stringKey);
+            if (!Containers.ContainsKey(containerKey)) {
+                throw new BotGeneraicException($"{containerKey} bot string container not found");
             }            
-            return null;
+            return Containers[containerKey].getString(stringKey);
         }
         
         private Dictionary<string, string> getFilePaths()
         {
             var filePaths = new Dictionary<string, string>();
-            //var botStringsDir = Path.Combine(Directory.GetCurrentDirectory(), _config["bot_strings_path"]);
             var botStrDir =  _config["bot_strings_path"];
             if(Directory.Exists(botStrDir))
             {

@@ -30,9 +30,9 @@ namespace ShooterMcGavinBot.Services
             string retQuote = _roasts[randIndx];
             if(userMention != null)
             {
-                return String.Format("{0} {1}", userMention, retQuote);
+                return $"{userMention} {retQuote}";
             }
-            return String.Format("@here {0}", retQuote);
+            return $"@here {retQuote}";
         }
     }
 }
