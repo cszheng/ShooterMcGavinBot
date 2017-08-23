@@ -1,0 +1,7 @@
+language: csharp
+services:
+  - docker
+install:
+  - docker build -t cszheng/shooter-mcgavin-bot .
+script:
+  - docker run -e DOTNETCORE_ENVIRONMENT=$DOTNETCORE_ENVIRONMENT -e DISCORDBOT_TOKEN=$DISCORDBOT_TOKEN cszheng/shooter-mcgavin-bot ./test.sh
