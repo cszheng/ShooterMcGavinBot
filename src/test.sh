@@ -1,4 +1,4 @@
 #!/bin/bash
 
 cd ShooterMcGavinBot
-exit 1
+exit 0
