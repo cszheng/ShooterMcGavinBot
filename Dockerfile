@@ -5,6 +5,11 @@ RUN mkdir /src
 COPY ./src /src
 WORKDIR /src
 
+#give permissions to scripts
+RUN chmod a+x build.sh
+RUN chmod a+x run.sh
+RUN chmod a+x test.sh
+
 #restore and build the dotnet packages
 RUN ./build.sh
 

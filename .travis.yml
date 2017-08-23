@@ -1,4 +1,4 @@
-language: csharp
+language: any
 services:
   - docker
 install:
