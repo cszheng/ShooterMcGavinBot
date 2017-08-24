@@ -6,21 +6,22 @@ branches:
     - master
 env:
   RELEASE=true
-  RELEASE_VERSION=v0.1.0
+  RELEASE_MAJOR=0
+  RELEASE_MINOR=1
+  RELEASE_BUGFIXES=0
 before_install: 
   - # Starting build for cszheng/ShooterMcGavinBot...
   - chmod +x git_release.sh
+  - chmod +x docker_release.sh
 install:
   - # Building docker image...
-  - docker build -t cszheng/shooter-mcgavin-bot .
+  - docker build -t cszheng/$DOCKER_IMAGE .
 script:
   - # Running tests...
-  - docker run -e DOTNETCORE_ENVIRONMENT=$DOTNETCORE_ENVIRONMENT -e DISCORDBOT_TOKEN=$DISCORDBOT_TOKEN cszheng/shooter-mcgavin-bot ./test.sh
+  - docker run -e DOTNETCORE_ENVIRONMENT=$DOTNETCORE_ENVIRONMENT -e DISCORDBOT_TOKEN=$DISCORDBOT_TOKEN cszheng/$DOCKER_IMAGE ./test.sh
 after_success:
-  - export RELEASE_TAG=$RELEASE_VERSION.$TRAVIS_BUILD_NUMBER
+  - export RELEASE_TAG=v$RELEASE_MAJOR.$RELEASE_MINOR.$RELEASE_BUGFIXES.$TRAVIS_BUILD_NUMBER
   - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$RELEASE" == "true" ]; then      
-      ./git_release.sh $RELEASE_TAG $GIT_OAUTH_USER $GIT_OAUTH_TOKEN $GIT_REMOTE_URL $TRAVIS_BRANCH;     
-    fi 
-  - # Pushing build tag to github...  
-  - # Pushing docker image to dockerhub...
-  - # if [ "$TRAVIS_BRANCH" == "master" ]; then docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"; docker push cszheng/shooter-mcgavin-bot; fi
+      ./git_release.sh $RELEASE_TAG $GIT_USER $GIT_TOKEN $GIT_URL $TRAVIS_BRANCH;     
+      ./docker_release.sh $RELEASE_TAG $DOCKER_USER $DOCKER_PASSWORD $DOCKER_URL $DOCKER_IMAGE;
+    fi

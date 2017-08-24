@@ -5,7 +5,9 @@ GIT_USER=$2
 GIT_TOKEN=$3
 GIT_URL=$4
 GIT_BRANCH=$5
-REMOTE_URL=https://$GIT_USER:$GIT_TOKEN@$GIT_URL     
+
+REMOTE_URL=https://$GIT_USER:$GIT_TOKEN@$GIT_URL   
+
 git remote rm origin
 git remote add origin $REMOTE_URL
 git tag $RELEASE_TAG -am "Generated tag from TravisCI build $RELEASE_TAG"
