@@ -27,5 +27,3 @@ pre_deploy:
       docker push cszheng/shooter-mcgavin-bot;
     fi
   - echo "===================================================="
-deploy:
-  - echo "nothing here yet..."
