@@ -5,7 +5,8 @@ branches:
   only:
     - master
 env:
-  - RELEASE=false
+  RELEASE=false
+  RELEASE_VERSION=v0.1.0
 pre_install: 
   - # Starting build for cszheng/ShooterMcGavinBot...
 install:
@@ -15,19 +16,16 @@ script:
   - # Running tests...
   - docker run -e DOTNETCORE_ENVIRONMENT=$DOTNETCORE_ENVIRONMENT -e DISCORDBOT_TOKEN=$DISCORDBOT_TOKEN cszheng/shooter-mcgavin-bot ./test.sh
 after_success:
-  - if [ "$RELEASE" == "false" ]; then
+  - export CURRENT_TAGS=$(git tag --points-at $TRAVIS_COMMIT)
+  - if [ "$CURRENT_TAGS" == "" ] && [ "$RELEASE" == "true" ]; then      
+      export RELEASE_TAG=$RELEASE_VERSION.$TRAVIS_BUILD_NUMBER;
+      export REMOTE_URL=https://$GIT_OAUTH_USER:$GIT_OAUTH_TOKEN@$GIT_REMOTE_URL;      
+      git remote rm origin;
+      git remote add origin $REMOTE_URL;
+      git tag $RELEASE_TAG -am "Generated tag from TravisCI build $RELEASE_TAG";
+      git push origin $TRAVIS_BRANCH --tags; 
       exit 0;
-    fi
-  - # Creating version number...
-  - export BUILD_VERSION=v0.1.0.$TRAVIS_BUILD_NUMBER
+    fi 
   - # Pushing build tag to github...  
-  - export REMOTE_URL=https://$GIT_OAUTH_USER:$GIT_OAUTH_TOKEN@$GIT_REMOTE_URL
-  - git remote rm origin
-  - git remote add origin $REMOTE_URL  
-  - git tag $BUILD_VERSION -am "Generated tag from TravisCI build $BUILD_VERSION"
-  - git push origin $TRAVIS_BRANCH --tags
   - # Pushing docker image to dockerhub...
-  - if [ "$TRAVIS_BRANCH" == "master" ]; then
-      docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-      docker push cszheng/shooter-mcgavin-bot;
-    fi
+  - # if [ "$TRAVIS_BRANCH" == "master" ]; then docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"; docker push cszheng/shooter-mcgavin-bot; fi
