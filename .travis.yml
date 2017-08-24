@@ -3,27 +3,22 @@ services:
   - docker
 pre_install: 
   - echo "Starting build for $TRAVIS_REPO_SLUG..."
-  - echo "===================================================="
 install:
   - echo "Building docker image..."
   - docker build -t cszheng/shooter-mcgavin-bot .
-  - echo "===================================================="
 script:
   - echo "Running tests..."
   - docker run -e DOTNETCORE_ENVIRONMENT=$DOTNETCORE_ENVIRONMENT -e DISCORDBOT_TOKEN=$DISCORDBOT_TOKEN cszheng/shooter-mcgavin-bot ./test.sh
-  - echo "===================================================="
 after_success:
   - echo "Pushing build tag to github..."
   - git config --global user.email "builds@travis-ci.com"
   - git config --global user.name "Travis CI"
   - export GIT_TAG=v0.1-$TRAVIS_BUILD_NUMBER
   - git tag $GIT_TAG -a -m "Generated tag from TravisCI build $GIT_TAG"
-  - git push origin $TRAVIS_BRANCH
-  - echo "===================================================="
+  - git push origin $TRAVIS_BRANCH --tag
 pre_deploy:
   - echo "Pushing docker image to dockerhub..."
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
       docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
       docker push cszheng/shooter-mcgavin-bot;
     fi
-  - echo "===================================================="
