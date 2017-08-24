@@ -9,6 +9,7 @@ env:
   RELEASE_VERSION=v0.1.0
 pre_install: 
   - # Starting build for cszheng/ShooterMcGavinBot...
+  - chmod a+x git_release.sh
 install:
   - # Building docker image...
   - docker build -t cszheng/shooter-mcgavin-bot .
@@ -16,7 +17,7 @@ script:
   - # Running tests...
   - docker run -e DOTNETCORE_ENVIRONMENT=$DOTNETCORE_ENVIRONMENT -e DISCORDBOT_TOKEN=$DISCORDBOT_TOKEN cszheng/shooter-mcgavin-bot ./test.sh
 after_success:
-  - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$RELEASE" == "true" ]; then
+  - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$RELEASE" == "true" ]; then      
       ./git_release.sh;     
     fi 
   - # Pushing build tag to github...  
