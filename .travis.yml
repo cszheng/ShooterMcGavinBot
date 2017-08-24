@@ -10,18 +10,18 @@ env:
   RELEASE_MINOR=1
   RELEASE_BUGFIXES=0
 before_install: 
-  - # Starting build for cszheng/ShooterMcGavinBot...
-  - chmod +x git_release.sh
-  - chmod +x docker_release.sh
+  # Starting build for cszheng/ShooterMcGavinBot...
+  - chmod +x release_git.sh
+  - chmod +x release_docker.sh
 install:
-  - # Building docker image...
+  # Building docker image...
   - docker build -t cszheng/$DOCKER_IMAGE .
 script:
-  - # Running tests...
+  # Running tests...
   - docker run -e DOTNETCORE_ENVIRONMENT=$DOTNETCORE_ENVIRONMENT -e DISCORDBOT_TOKEN=$DISCORDBOT_TOKEN cszheng/$DOCKER_IMAGE ./test.sh
 after_success:
   - export RELEASE_TAG=v$RELEASE_MAJOR.$RELEASE_MINOR.$RELEASE_BUGFIXES.$TRAVIS_BUILD_NUMBER
   - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$RELEASE" == "true" ]; then      
-      ./git_release.sh $RELEASE_TAG $GIT_USER $GIT_TOKEN $GIT_URL $TRAVIS_BRANCH;     
-      ./docker_release.sh $RELEASE_TAG $DOCKER_USER $DOCKER_PASSWORD $DOCKER_URL $DOCKER_IMAGE;
+      ./release_git.sh $RELEASE_TAG $GIT_USER $GIT_TOKEN $GIT_URL $TRAVIS_BRANCH;     
+      ./release_docker.sh $RELEASE_TAG $DOCKER_USER $DOCKER_PASSWORD $DOCKER_URL $DOCKER_IMAGE;
     fi
