@@ -2,12 +2,12 @@ language: any
 services:
   - docker
 branches:
-  except:
-    - /^v[0-9]/
+  only:
+    - master
 env:
   RELEASE=true
   RELEASE_VERSION=v0.1.0
-pre_install: 
+before_install: 
   - # Starting build for cszheng/ShooterMcGavinBot...
   - chmod +x git_release.sh
 install:
