@@ -1,6 +1,11 @@
 language: any
 services:
   - docker
+branches:
+  only:
+    - master
+env:
+  - RELEASE=false
 pre_install: 
   - # Starting build for cszheng/ShooterMcGavinBot...
 install:
@@ -10,6 +15,9 @@ script:
   - # Running tests...
   - docker run -e DOTNETCORE_ENVIRONMENT=$DOTNETCORE_ENVIRONMENT -e DISCORDBOT_TOKEN=$DISCORDBOT_TOKEN cszheng/shooter-mcgavin-bot ./test.sh
 after_success:
+  - if [ "$RELEASE" == "false" ]; then
+      exit 0;
+    fi
   - # Creating version number...
   - export BUILD_VERSION=v0.1.0.$TRAVIS_BUILD_NUMBER
   - # Pushing build tag to github...  
