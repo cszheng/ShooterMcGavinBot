@@ -1,27 +1,35 @@
 language: any
 services:
-  - docker
+- docker
 branches:
   only:
-    - master
-env:
-  RELEASE=true
-  RELEASE_MAJOR=0
-  RELEASE_MINOR=1
+  - master
+env: 
+  # release flag and environment variables
+  RELEASE=true 
+  RELEASE_MAJOR=0 
+  RELEASE_MINOR=1 
   RELEASE_BUGFIXES=0
-before_install: 
-  # Starting build for cszheng/ShooterMcGavinBot...
-  - chmod +x release_git.sh
-  - chmod +x release_docker.sh
+before_install:
+  # unencrypt secrets, extract them, and copy to correct directories
+  - openssl aes-256-cbc -K $encrypted_ddab6eb3af73_key -iv $encrypted_ddab6eb3af73_iv -in secrets.tar.gz.enc -out secrets.tar.gz -d
+  - tar -xvf secrets.tar.gz
+  - cp -f secrets/gcloud-credentials.json ./gcloud-credentials.json
+  # grant execute permission to scripts
+  - chmod +x release/release_git.sh
+  - chmod +x release/release_docker.sh
 install:
-  # Building docker image...
   - docker build -t cszheng/$DOCKER_IMAGE .
 script:
-  # Running tests...
   - docker run -e DOTNETCORE_ENVIRONMENT=$DOTNETCORE_ENVIRONMENT -e DISCORDBOT_TOKEN=$DISCORDBOT_TOKEN cszheng/$DOCKER_IMAGE ./test.sh
 after_success:
   - export RELEASE_TAG=v$RELEASE_MAJOR.$RELEASE_MINOR.$RELEASE_BUGFIXES.$TRAVIS_BUILD_NUMBER
-  - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$RELEASE" == "true" ]; then      
-      ./release_git.sh $RELEASE_TAG $GIT_USER $GIT_TOKEN $GIT_URL $TRAVIS_BRANCH;     
-      ./release_docker.sh $RELEASE_TAG $DOCKER_USER $DOCKER_PASSWORD $DOCKER_URL $DOCKER_IMAGE;
+  - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$RELEASE" == "true" ]; then 
+      ./release/release_git.sh $RELEASE_TAG $GIT_USER $GIT_TOKEN $GIT_URL $TRAVIS_BRANCH; 
+      ./release/release_docker.sh $RELEASE_TAG $DOCKER_USER $DOCKER_PASSWORD $DOCKER_URL $DOCKER_IMAGE; 
     fi
+after_script:
+  - rm -rf secrets.tar.gz
+  - rm -rf secrets
+  - rm -rf ./gcloud-credentials.json
+  - ls -al
