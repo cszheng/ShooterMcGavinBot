@@ -28,10 +28,18 @@ install:
 script:
   - ./travis_scripts/script/script.sh
 after_success:
-  - ./travis_scripts/after_success/after_success.sh
+  - RELEASE_TAG=v$RELEASE_MAJOR.$RELEASE_MINOR.$RELEASE_BUGFIXES.$TRAVIS_BUILD_NUMBER
+  - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$RELEASE" == "true" ]; then 
+      #release for git
+      REMOTE_URL=https://$GIT_USER:$GIT_TOKEN@$GIT_URL;
+      git remote rm origin;
+      git remote add origin $REMOTE_URL
+      git tag $RELEASE_TAG -am "Generated tag from TravisCI build $RELEASE_TAG"
+      git push origin $TRAVIS_BRANCH --tags
+    fi
 after_script:
   #remove secrets
   - rm -rf secrets.tar.gz
   - rm -rf secrets
-  - rm -rf ./github-credentials.sh
+  - rm -rf ./github_credentials.sh
   - ls -al
