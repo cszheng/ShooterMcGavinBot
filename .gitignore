@@ -2,3 +2,6 @@ secrets/
 bin/
 obj/
 *.dll
+config.Development.json
+config.Staging.json
+config.Production.json 
