@@ -23,6 +23,7 @@ before_install:
   - chmod +x travis_scripts/script/script.sh
   - chmod +x travis_scripts/after_success/after_success.sh
   - chmod +x travis_scripts/after_success/release_git.sh
+  - chmod +x travis_scripts/after_success/release_docker.sh
   # run secrets scripts in context of the caller
   - source ./git_credentials.sh
   - source ./docker_credentials.sh
