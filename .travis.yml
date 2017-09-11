@@ -21,8 +21,8 @@ before_install:
   - chmod +x travis_scripts/script/script.sh
   - chmod +x travis_scripts/after_success/after_success.sh
   - chmod +x travis_scripts/after_success/release_git.sh
-  # run secrets scripts
-  - ./github_credentials.sh
+  # run secrets scripts in context of the caller
+  - source ./github_credentials.sh
 install:
   - ./travis_scripts/install/install.sh
 script:
