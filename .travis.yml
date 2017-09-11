@@ -33,9 +33,9 @@ after_success:
       #release for git
       REMOTE_URL=https://$GIT_USER:$GIT_TOKEN@$GIT_URL;
       git remote rm origin;
-      git remote add origin $REMOTE_URL
-      git tag $RELEASE_TAG -am "Generated tag from TravisCI build $RELEASE_TAG"
-      git push origin $TRAVIS_BRANCH --tags
+      git remote add origin $REMOTE_URL;
+      git tag $RELEASE_TAG -am "Generated tag from TravisCI build $RELEASE_TAG";
+      git push origin $TRAVIS_BRANCH --tags;
     fi
 after_script:
   #remove secrets
