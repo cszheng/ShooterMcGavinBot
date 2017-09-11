@@ -14,8 +14,10 @@ before_install:
   - openssl aes-256-cbc -K $encrypted_83630750896a_key -iv $encrypted_83630750896a_iv -in secrets.tar.gz.enc -out secrets.tar.gz -d
   - tar -xvf secrets.tar.gz
   - cp -f secrets/git_credentials.sh ./git_credentials.sh
+  - cp -f secrets/docker_credentials.sh ./docker_credentials.sh
   # add permissions to secrets shell scripts
   - chmod +x git_credentials.sh
+  - chmod +x docker_credentials.sh
   # add permissions to non-secrets scripts
   - chmod +x travis_scripts/install/install.sh
   - chmod +x travis_scripts/script/script.sh
@@ -23,6 +25,7 @@ before_install:
   - chmod +x travis_scripts/after_success/release_git.sh
   # run secrets scripts in context of the caller
   - source ./git_credentials.sh
+  - source ./docker_credentials.sh
 install:
   - ./travis_scripts/install/install.sh
 script:
@@ -34,4 +37,5 @@ after_script:
   - rm -rf secrets.tar.gz
   - rm -rf secrets
   - rm -rf ./git_credentials.sh
+  - rm -rf ./docker_credentials.sh
   - ls -al

@@ -8,5 +8,8 @@ if [ "$TRAVIS_BRANCH" == "master" ] && [ "$RELEASE" == "true" ]; then
     echo "./travis_scripts/after_success/release_git.sh [GIT_USER] [GIT_TOKEN] [GIT_URL] [RELEASE_TAG] [TRAVIS_BRANCH];"     
     ./travis_scripts/after_success/release_git.sh $GIT_USER $GIT_TOKEN $GIT_URL $RELEASE_TAG $TRAVIS_BRANCH; 
 
+    echo "./travis_scripts/after_success/release_docker.sh [DOCKER_USER] [DOCKER_PASSWORD] [DOCKER_URL] [DOCKER_IMAGE] [RELEASE_TAG];"
+    ./travis_scripts/after_success/release_docker.sh $DOCKER_USER $DOCKER_PASSWORD $DOCKER_URL $DOCKER_IMAGE $RELEASE_TAG;
+
 echo "fi"
 fi
