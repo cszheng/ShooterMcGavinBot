@@ -15,7 +15,7 @@ before_install:
   - tar -xvf secrets.tar.gz
   - cp -f secrets/github_credentials.sh ./github_credentials.sh
   # add permissions to secrets shell scripts
-  - chmod +x github-credentials.sh
+  - chmod +x github_credentials.sh
   # add permissions to non-secrets scripts
   - chmod +x travis_scripts/install/install.sh
   - chmod +x travis_scripts/script/script.sh
