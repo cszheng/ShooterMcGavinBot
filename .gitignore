@@ -1,4 +1,5 @@
 secrets/
+secrets.tar.gz
 bin/
 obj/
 *.dll

@@ -5,31 +5,33 @@ branches:
   only:
   - master
 env: 
-  # release flag and environment variables
-  RELEASE=true 
-  RELEASE_MAJOR=0 
-  RELEASE_MINOR=1 
-  RELEASE_BUGFIXES=0
+  - RELEASE=true 
+  - RELEASE_MAJOR=0 
+  - RELEASE_MINOR=1 
+  - RELEASE_BUGFIXES=0
 before_install:
-  # unencrypt secrets, extract them, and copy to correct directories
-  - openssl aes-256-cbc -K $encrypted_ddab6eb3af73_key -iv $encrypted_ddab6eb3af73_iv -in secrets.tar.gz.enc -out secrets.tar.gz -d
+  # unencrypt secrets, extract, and move them
+  - openssl aes-256-cbc -K $encrypted_83630750896a_key -iv $encrypted_83630750896a_iv -in secrets.tar.gz.enc -out secrets.tar.gz -d
   - tar -xvf secrets.tar.gz
-  - cp -f secrets/gcloud-credentials.json ./gcloud-credentials.json
-  # grant execute permission to scripts
-  - chmod +x release/release_git.sh
-  - chmod +x release/release_docker.sh
+  - cp -f secrets/github_credentials.sh ./github_credentials.sh
+  # add permissions to secrets shell scripts
+  - chmod +x github-credentials.sh
+  # add permissions to non-secrets scripts
+  - chmod +x travis_scripts/install/install.sh
+  - chmod +x travis_scripts/script/script.sh
+  - chmod +x travis_scripts/after_success/after_success.sh
+  - chmod +x travis_scripts/release_git.sh
+  # run secrets scripts
+  - ./github_credentials.sh
 install:
-  - docker build -t cszheng/$DOCKER_IMAGE .
+  - ./travis_scripts/install/install.sh
 script:
-  - docker run -e DOTNETCORE_ENVIRONMENT=$DOTNETCORE_ENVIRONMENT -e DISCORDBOT_TOKEN=$DISCORDBOT_TOKEN cszheng/$DOCKER_IMAGE ./test.sh
+  - ./travis_scripts/script/script.sh
 after_success:
-  - export RELEASE_TAG=v$RELEASE_MAJOR.$RELEASE_MINOR.$RELEASE_BUGFIXES.$TRAVIS_BUILD_NUMBER
-  - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$RELEASE" == "true" ]; then 
-      ./release/release_git.sh $RELEASE_TAG $GIT_USER $GIT_TOKEN $GIT_URL $TRAVIS_BRANCH; 
-      ./release/release_docker.sh $RELEASE_TAG $DOCKER_USER $DOCKER_PASSWORD $DOCKER_URL $DOCKER_IMAGE; 
-    fi
+  - ./travis_scripts/after_success/after_success.sh
 after_script:
+  #remove secrets
   - rm -rf secrets.tar.gz
   - rm -rf secrets
-  - rm -rf ./gcloud-credentials.json
+  - rm -rf ./github-credentials.sh
   - ls -al
