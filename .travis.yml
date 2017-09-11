@@ -30,7 +30,7 @@ script:
 after_success:
   - RELEASE_TAG=v$RELEASE_MAJOR.$RELEASE_MINOR.$RELEASE_BUGFIXES.$TRAVIS_BUILD_NUMBER
   - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$RELEASE" == "true" ]; then 
-      #release for git
+      echo "Release for git";
       REMOTE_URL=https://$GIT_USER:$GIT_TOKEN@$GIT_URL;
       git remote rm origin;
       git remote add origin $REMOTE_URL;
