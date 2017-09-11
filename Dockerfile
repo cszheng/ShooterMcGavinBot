@@ -21,15 +21,15 @@ CMD ["/bin/bash", "./run.sh"]
 
 # ***Run container with:***
 # powershell: 
-#   docker run -e DOTNETCORE_ENVIRONMENT=$Env:DOTNETCORE_ENVIRONMENT -e DISCORDBOT_TOKEN=$Env:DISCORDBOT_TOKEN cszheng/shooter-mcgavin-bot
+#   docker run -e DOTNETCORE_ENVIRONMENT=$Env:DOTNETCORE_ENVIRONMENT cszheng/shooter-mcgavin-bot
 # inactive mode without running run.sh
-#   docker run -it -e DOTNETCORE_ENVIRONMENT=$Env:DOTNETCORE_ENVIRONMENT -e DISCORDBOT_TOKEN=$Env:DISCORDBOT_TOKEN cszheng/shooter-mcgavin-bot /bin/bash
+#   docker run -it -e DOTNETCORE_ENVIRONMENT=$Env:DOTNETCORE_ENVIRONMENT cszheng/shooter-mcgavin-bot /bin/bash
 # non-interactive without running run.sh
-#   docker run -e DOTNETCORE_ENVIRONMENT=$Env:DOTNETCORE_ENVIRONMENT -e DISCORDBOT_TOKEN=$Env:DISCORDBOT_TOKEN cszheng/shooter-mcgavin-bot echo test
+#   docker run -e DOTNETCORE_ENVIRONMENT=$Env:DOTNETCORE_ENVIRONMENT cszheng/shooter-mcgavin-bot echo test
 # -------------------------------------------------------------------------------------------------------------------------------------------------------
 # bash:
-#   docker run -e DOTNETCORE_ENVIRONMENT=$DOTNETCORE_ENVIRONMENT -e DISCORDBOT_TOKEN=$DISCORDBOT_TOKEN cszheng/shooter-mcgavin-bot
+#   docker run -e DOTNETCORE_ENVIRONMENT=$DOTNETCORE_ENVIRONMENT cszheng/shooter-mcgavin-bot
 # inactive mode without running run.sh
-#   docker run -it -e DOTNETCORE_ENVIRONMENT=$DOTNETCORE_ENVIRONMENT -e DISCORDBOT_TOKEN=$DISCORDBOT_TOKEN cszheng/shooter-mcgavin-bot /bin/bash
+#   docker run -it -e DOTNETCORE_ENVIRONMENT=$DOTNETCORE_ENVIRONMENT cszheng/shooter-mcgavin-bot /bin/bash
 # non-interactive without running run.sh
-#   docker run -e DOTNETCORE_ENVIRONMENT=$DOTNETCORE_ENVIRONMENT -e DISCORDBOT_TOKEN=$DISCORDBOT_TOKEN cszheng/shooter-mcgavin-bot echo test
+#   docker run -e DOTNETCORE_ENVIRONMENT=$DOTNETCORE_ENVIRONMENT cszheng/shooter-mcgavin-bot echo test

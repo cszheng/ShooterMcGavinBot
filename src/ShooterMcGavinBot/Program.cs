@@ -15,7 +15,6 @@ namespace ShooterMcGavinBot.Main
 {
     class Program
     {
-        private ISecrets _secrets;
         private IConfiguration _config;
         private DiscordSocketConfig _clientConfig;
         private Assembly _moduleAssembly;        
@@ -24,8 +23,6 @@ namespace ShooterMcGavinBot.Main
 
         private Program()
         {
-            //get secrets
-            _secrets = new Secrets();
             //load configurations 
             _config = BuildConfig();
             _clientConfig = BuildClientConfig();
@@ -73,7 +70,6 @@ namespace ShooterMcGavinBot.Main
             //add the services
             var services = new ServiceCollection();
             //add the objects initialized in the constructor
-            services.AddSingleton<ISecrets>(_secrets);
             services.AddSingleton<IConfiguration>(_config);
             services.AddSingleton<Assembly>(_moduleAssembly);
             services.AddSingleton<DiscordSocketClient>(_client);
@@ -90,7 +86,7 @@ namespace ShooterMcGavinBot.Main
 
         private IConfiguration BuildConfig()
         {
-            var env = _secrets.GetSecret("DOTNETCORE_ENVIRONMENT");
+            var env = Environment.GetEnvironmentVariable("DOTNETCORE_ENVIRONMENT");
             var config = new ConfigurationBuilder()
                             .SetBasePath(Directory.GetCurrentDirectory())
                             .AddJsonFile("config.json")

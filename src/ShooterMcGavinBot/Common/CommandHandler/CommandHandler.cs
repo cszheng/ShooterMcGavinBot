@@ -13,7 +13,6 @@ namespace ShooterMcGavinBot.Common
     {
         //private variables
         protected IServiceProvider _provider;
-        protected ISecrets _secrets;
         protected IConfiguration _config;
         protected Assembly _entryAssembly;
         protected DiscordSocketClient _client;
@@ -21,7 +20,6 @@ namespace ShooterMcGavinBot.Common
         protected ILogger _logger;
         //constructor
         public CommandHandler(IServiceProvider provider, 
-                              ISecrets secrets,
                               IConfiguration config,
                               Assembly entryAssembly,
                               DiscordSocketClient client, 
@@ -29,7 +27,6 @@ namespace ShooterMcGavinBot.Common
                               ILogger logger)
         {
             _provider = provider;
-            _secrets = secrets;
             _config = config;
             _entryAssembly = entryAssembly;           
             _client = client;
@@ -40,7 +37,7 @@ namespace ShooterMcGavinBot.Common
         //public functions
         public async Task Start() 
         {   
-            var token = _secrets.GetSecret("DISCORDBOT_TOKEN");
+            var token = _config["discordbot_token"];
             //command events
             await AddCommands();
             //start the client          
