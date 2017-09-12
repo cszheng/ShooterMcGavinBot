@@ -15,8 +15,7 @@ before_install:
   - tar -xvf secrets.tar.gz
   - cp -f secrets/git_credentials.sh ./git_credentials.sh
   - cp -f secrets/docker_credentials.sh ./docker_credentials.sh
-  - cp -f secrets/config.Development.json ./src/ShooterMcGavinBot/config.Development.json
-  - cp -f secrets/config.Production.json ./src/ShooterMcGavinBot/config.Production.json
+  - cp -f secrets/config.*.json ./src/ShooterMcGavinBot/
   # add permissions to secrets shell scripts
   - chmod +x git_credentials.sh
   - chmod +x docker_credentials.sh
@@ -41,6 +40,5 @@ after_script:
   - rm -rf secrets
   - rm -rf ./git_credentials.sh
   - rm -rf ./docker_credentials.sh
-  - rm -rf ./src/ShooterMcGavinBot/config.Development.json
-  - rm -rf ./src/ShooterMcGavinBot/config.Production.json
+  - rm -rf ./src/ShooterMcGavinBot/config.*.json
   - ls -al
