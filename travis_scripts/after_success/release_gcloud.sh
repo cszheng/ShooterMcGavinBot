@@ -1,6 +1,6 @@
 #!/bin/bash
 gcloudssh () {
-    gcloud compute ssh $GCLOUD_INSTANCE_USER@$GCLOUD_INSTANCE --ssh-key-file=gcloud-instance-key --command="$1"    
+    gcloud compute ssh $GCLOUD_INSTANCE_USER@$GCLOUD_INSTANCE --zone=$GCLOUD_ZONE --ssh-key-file=gcloud-instance-key --command="$1"    
 }
 
 echo "if [ ! -d \"[HOME]/google-cloud-sdk/bin\" ]; then"
@@ -27,8 +27,8 @@ gcloudssh "sudo docker stop $DOCKER_IMAGE-container-1"
 echo "gcloudssh \"sudo docker rm [DOCKER_IMAGE]-container-1\""
 gcloudssh "sudo docker rm $DOCKER_IMAGE-container-1"
 
-echo "gcloudssh \"sudo docker login -u [DOCKER_USER] -p [DOCKER_PASSWORD] [REGISTERY_URL]\""
-gcloudssh "sudo docker login -u $DOCKER_USER -p $DOCKER_PASSWORD $REGISTERY_URL"
+echo "gcloudssh \"sudo docker login -u [DOCKER_USER] -p [DOCKER_PASSWORD] [DOCKER_URL]\""
+gcloudssh "sudo docker login -u $DOCKER_USER -p $DOCKER_PASSWORD $DOCKER_URL"
 
 echo "gcloudssh \"sudo docker pull [DOCKER_USER]/[DOCKER_IMAGE]\""
 gcloudssh "sudo docker pull $DOCKER_USER/$DOCKER_IMAGE $DOCKER_IMAGE"
