@@ -1,6 +1,6 @@
 #!/bin/bash
 gcloudssh () {
-    gcloud compute ssh $GCLOUD_INSTANCE_USER@$GCLOUD_INSTANCE --zone=$GCLOUD_ZONE --ssh-key-file=gcloud-instance-key --command="$1"    
+    sudo gcloud compute ssh $GCLOUD_INSTANCE_USER@$GCLOUD_INSTANCE --zone=$GCLOUD_ZONE --ssh-key-file=gcloud-instance-key --command="$1"    
 }
 
 echo "if [ ! -d \"[HOME]/google-cloud-sdk/bin\" ]; then"
