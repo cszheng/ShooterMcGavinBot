@@ -1,10 +1,4 @@
 #!/bin/bash
-#create a release tag for the current build
-DOCKER_USER=$1
-DOCKER_PASSWORD=$2
-DOCKER_URL=$3
-DOCKER_IMAGE=$4
-RELEASE_TAG=$5
 
 echo "REGISTERY_URL=https://[DOCKER_URL]"
 REGISTERY_URL=https://$DOCKER_URL    
