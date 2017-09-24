@@ -1,6 +1,6 @@
 {
     "section_breaks": "**--------------------------------------------------------------------------------**",
-    "command_header": "__**Commands:**__ TEST CHANGE",
+    "command_header": "__**Commands:**__",
     "command_description": "**{0}** - *{1}*",
     "method_description": "**{0}** - *{1}*",
     "parameter_description": "    __{0}__ - *{1}*"
