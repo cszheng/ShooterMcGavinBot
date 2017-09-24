@@ -15,7 +15,7 @@ before_install:
   - tar -xvf secrets.tar.gz
   - cp -f secrets/git_credentials.sh .
   - cp -f secrets/docker_credentials.sh .
-  - cp -f secrets/gcloud* .
+  - cp -f secrets/gcloud_credentials .
   - cp -f secrets/config.*.json ./src/ShooterMcGavinBot/
   # add permissions to secrets shell scripts
   - chmod +x git_credentials.sh
@@ -44,6 +44,6 @@ after_script:
   - rm -rf secrets
   - rm -rf ./git_credentials.sh
   - rm -rf ./docker_credentials.sh
-  - rm -rf ./gcloud*
+  - rm -rf ./docker_credentials.sh
   - rm -rf ./src/ShooterMcGavinBot/config.*.json
   - ls -al
