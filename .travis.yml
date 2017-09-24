@@ -46,4 +46,4 @@ after_script:
   - rm -rf ./docker_credentials.sh
   - rm -rf ./gcloud_credentials.sh
   - rm -rf ./src/ShooterMcGavinBot/config.*.json
-  - ls -al
+  
