@@ -1,4 +1,4 @@
 #!/bin/bash
 
-cd ShooterMcGavinBot
-exit 0
+cd Tests
+dotnet test --verbosity=m --filter=FullyQualifiedName!=Tests.Main.SampleTests.ShouldFail
