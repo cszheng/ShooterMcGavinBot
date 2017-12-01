@@ -7,8 +7,8 @@ namespace ShooterMcGavinBot.Common
     public class Logger: ILogger
     {
         public Task Log(LogMessage message)
-        {
-            Console.WriteLine(message.ToString());
+        {           
+            Log(message.ToString());
             return Task.CompletedTask;
         }
 
