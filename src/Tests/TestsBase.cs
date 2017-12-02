@@ -8,7 +8,7 @@ namespace Tests.Main
     {
         private TextWriter _origConsoleStream;
         private StringWriter _consoleStream; 
-        
+
         public TestsBase() 
         {
             //redirect console output

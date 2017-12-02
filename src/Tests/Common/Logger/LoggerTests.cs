@@ -13,10 +13,10 @@ namespace Tests.Main
         public void LogMessageSync()
         {   
             //ARRANGE
-            ILogger logger = new Logger();
+            ILogger sutLogger = new Logger();
             String logMessage = "Testing message to log sync";            
             //ACT
-            logger.Log(logMessage);
+            sutLogger.Log(logMessage);
             String loggerOutput = GetConsoleOutput();
             //ASSERT
             Assert.That(loggerOutput, Is.EqualTo(logMessage));
@@ -26,11 +26,11 @@ namespace Tests.Main
         public async Task LogMessageAsync()
         {
             //ARRANGE 
-            ILogger logger = new Logger();
+            ILogger sutLogger = new Logger();
             String logMessage = "Testing message to log async";               
             LogMessage logMessageObj = new LogMessage(LogSeverity.Info, "Message Source", logMessage);           
             //ACT
-            await Task.Run(() => logger.Log(logMessage));
+            await Task.Run(() => sutLogger.Log(logMessage));
             String loggerOutput = GetConsoleOutput();
             //ASSERT
             Assert.That(loggerOutput, Is.EqualTo(logMessage));
