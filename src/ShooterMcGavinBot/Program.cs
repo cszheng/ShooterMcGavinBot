@@ -86,7 +86,7 @@ namespace ShooterMcGavinBot.Main
 
         private IConfiguration BuildConfig()
         {
-            var env = Environment.GetEnvironmentVariable("DOTNETCORE_ENVIRONMENT");
+            var env = GetEnvironment();
             var config = new ConfigurationBuilder()
                             .SetBasePath(Directory.GetCurrentDirectory())
                             .AddJsonFile("config.json")
