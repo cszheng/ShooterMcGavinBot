@@ -23,28 +23,30 @@ namespace ShooterMcGavinBot.Common
 
         public BotStrings getContainer(string containerKey)
         {
+            if (!Containers.ContainsKey(containerKey)) 
+            {
+                throw new BotGeneraicException($"{containerKey} container not found");
+            }
             return Containers[containerKey];
         }
 
         public string getString(string containerKey, string stringKey)
-        {
-            if (!Containers.ContainsKey(containerKey)) {
-                throw new BotGeneraicException($"{containerKey} bot string container not found");
-            }            
-            return Containers[containerKey].getString(stringKey);
+        {        
+            return getContainer(containerKey).getString(stringKey);
         }
         
         private Dictionary<string, string> getFilePaths()
         {
             var filePaths = new Dictionary<string, string>();
             var botStrDir =  _config["bot_strings_path"];
-            if(Directory.Exists(botStrDir))
+            if(!Directory.Exists(botStrDir)) 
             {
-                filePaths = Directory.GetFiles(botStrDir)
-                                     .Where(t => t.EndsWith(".json"))
-                                     .Select(t => new KeyValuePair<string, string>(Path.GetFileName(t).Replace(".json", ""), t))
-                                     .ToDictionary(t => t.Key, t => t.Value);
+                throw new BotGeneraicException("Directory not found");
             }
+            filePaths = Directory.GetFiles(botStrDir)
+                                 .Where(t => t.EndsWith(".json"))
+                                 .Select(t => new KeyValuePair<string, string>(Path.GetFileName(t).Replace(".json", ""), t))
+                                 .ToDictionary(t => t.Key, t => t.Value);
             return filePaths;
         }
 
@@ -52,10 +54,11 @@ namespace ShooterMcGavinBot.Common
         {
             var filePaths = getFilePaths();
             var botStringsDict = new Dictionary<string, BotStrings>();
-            if(filePaths.Count > 0)
+            if(filePaths.Count == 0)
             {
-                botStringsDict = filePaths.ToDictionary(t => t.Key, t => new BotStrings(t.Value));
+                throw new BotGeneraicException("No json files in directory");
             }
+            botStringsDict = filePaths.ToDictionary(t => t.Key, t => new BotStrings(t.Value));            
             return botStringsDict;
         }
     }

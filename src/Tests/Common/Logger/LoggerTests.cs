@@ -13,7 +13,7 @@ namespace Tests.Main
         public void LogMessageSync()
         {   
             //ARRANGE
-            ILogger sutLogger = new Logger();
+            Logger sutLogger = new Logger();
             String logMessage = "Testing message to log sync";            
             //ACT
             sutLogger.Log(logMessage);
@@ -26,7 +26,7 @@ namespace Tests.Main
         public async Task LogMessageAsync()
         {
             //ARRANGE 
-            ILogger sutLogger = new Logger();
+            Logger sutLogger = new Logger();
             String logMessage = "Testing message to log async";               
             LogMessage logMessageObj = new LogMessage(LogSeverity.Info, "Message Source", logMessage);           
             //ACT

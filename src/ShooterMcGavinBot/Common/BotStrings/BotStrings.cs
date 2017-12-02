@@ -12,6 +12,10 @@ namespace ShooterMcGavinBot.Common
         
         public BotStrings(string jsonFilePath)
         {
+            if(!File.Exists(jsonFilePath)) 
+            {
+                throw new BotGeneraicException("Json file not found");
+            }
             var jsonString = File.ReadAllText(jsonFilePath);
             Container = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonString);
             Container.ToImmutableDictionary();
@@ -19,7 +23,8 @@ namespace ShooterMcGavinBot.Common
 
         public string getString(string key)
         {
-            if (!Container.ContainsKey(key)) {
+            if (!Container.ContainsKey(key)) 
+            {
                 throw new BotGeneraicException($"{key} botstring not found");
             }            
             return Container[key];

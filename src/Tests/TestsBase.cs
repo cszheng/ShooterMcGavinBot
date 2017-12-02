@@ -9,8 +9,12 @@ namespace Tests.Main
         private TextWriter _origConsoleStream;
         private StringWriter _consoleStream; 
 
+        protected String _projectDir;
+
         public TestsBase() 
         {
+            //project directory, where the .csproj is at
+            _projectDir = "../../..";
             //redirect console output
             _origConsoleStream = Console.Out; 
             _consoleStream = new StringWriter();

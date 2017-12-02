@@ -12,11 +12,11 @@ namespace Tests.Main
         [SetUp]
         public void Setup()
         {
-            _testJsonPath = "../../../_testfiles/botstringstest.json";
+            _testJsonPath = $"{_projectDir}/_testfiles/BotStringsFiles/test.json";
         }
 
         [Test]
-        public void JsonFileLoadedIntoContainer()
+        public void LoadJsonFileExists()
         {   
             //ARRANGE
             BotStrings sutBotStrings = new BotStrings(_testJsonPath);     
@@ -29,7 +29,19 @@ namespace Tests.Main
         }
 
         [Test]
-        public void RetrieveCorrectStringValue()
+        public void LoadJsonFileNotExist()
+        {
+            //ARRANGE
+            _testJsonPath = $"{_projectDir}/_testfiles/BotStringsFiles/BadFile.json";
+            //ACT** Delegated action
+            TestDelegate delegatedAct = new TestDelegate(() => { new BotStrings(_testJsonPath); });
+            //ASSERT
+            var except = Assert.Throws<BotGeneraicException>(delegatedAct);
+            Assert.That(except.Message, Is.EqualTo("Json file not found"));
+        }
+
+        [Test]
+        public void GetStringExists()
         {
             //ARRANGE            
             BotStrings sutBotStrings = new BotStrings(_testJsonPath);     
@@ -44,14 +56,15 @@ namespace Tests.Main
         }
 
         [Test]
-        public void BotStringKeyNotExistThrowsException()
+        public void GetStringNotExists()
         {
             //ARRANGE            
             BotStrings sutBotStrings = new BotStrings(_testJsonPath);             
             //ACT** Delegated action
             TestDelegate delegatedAct = new TestDelegate(() => { sutBotStrings.getString("test4"); });
             //ASSERT
-            Assert.Throws<BotGeneraicException>(delegatedAct, "test4 botstring not found");
+            var except = Assert.Throws<BotGeneraicException>(delegatedAct);
+            Assert.That(except.Message, Is.EqualTo("test4 botstring not found"));
         }
     }
 }
