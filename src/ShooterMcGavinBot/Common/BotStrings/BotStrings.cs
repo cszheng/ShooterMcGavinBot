@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace ShooterMcGavinBot.Common
 {
-    public class BotStrings
+    public class BotStrings : IBotStrings
     {
         public Dictionary<string, string> Container { get; private set; }
         

@@ -4,8 +4,8 @@ namespace ShooterMcGavinBot.Common
 {
     public interface IBotStringsContainer
     {
-        Dictionary<string, BotStrings> Containers { get; }
+        Dictionary<string, IBotStrings> Containers { get; }
         string getString(string containerKey, string stringKey);
-        BotStrings getContainer(string containerKey);
+        IBotStrings getContainer(string containerKey);
     }
 }

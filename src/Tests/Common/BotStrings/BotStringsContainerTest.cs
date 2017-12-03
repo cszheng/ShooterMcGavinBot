@@ -23,7 +23,7 @@ namespace Tests.Main
             //ARRANGE
             BotStringsContainer sutBotStringsCntr = new BotStringsContainer(_mockConfig.Object);     
             //ACT
-            Dictionary<string, BotStrings> containers = sutBotStringsCntr.Containers;      
+            Dictionary<string, IBotStrings> containers = sutBotStringsCntr.Containers;      
             //ASSERT
             Assert.That(containers.Count, Is.EqualTo(2));
             Assert.That(containers.ContainsKey("file1"), Is.EqualTo(true));
@@ -62,8 +62,8 @@ namespace Tests.Main
             //ARRANGE
             BotStringsContainer sutBotStringsCntr = new BotStringsContainer(_mockConfig.Object);     
             //ACT
-            BotStrings container1 = sutBotStringsCntr.getContainer("file1");
-            BotStrings container2 = sutBotStringsCntr.getContainer("file2");
+            IBotStrings container1 = sutBotStringsCntr.getContainer("file1");
+            IBotStrings container2 = sutBotStringsCntr.getContainer("file2");
             //ASSERT
             Assert.That(container1.Container.Count, Is.EqualTo(3));
             Assert.That(container2.Container.Count, Is.EqualTo(2));

@@ -11,7 +11,7 @@ namespace ShooterMcGavinBot.Common
     {
         protected IConfiguration _config;
 
-        public Dictionary<string, BotStrings> Containers { get; private set; }
+        public Dictionary<string, IBotStrings> Containers { get; private set; }
         
         public BotStringsContainer(IConfiguration config)
         {
@@ -20,7 +20,7 @@ namespace ShooterMcGavinBot.Common
             Containers.ToImmutableDictionary();
         }
 
-        public BotStrings getContainer(string containerKey)
+        public IBotStrings getContainer(string containerKey)
         {
             if (!Containers.ContainsKey(containerKey)) 
             {
@@ -49,15 +49,19 @@ namespace ShooterMcGavinBot.Common
             return filePaths;
         }
 
-        private Dictionary<string, BotStrings> buildContainer()
+        private Dictionary<string, IBotStrings> buildContainer()
         {
             Dictionary<string, string> filePaths = getFilePaths();
-            Dictionary<string, BotStrings> botStringsDict = new Dictionary<string, BotStrings>();
+            Dictionary<string, IBotStrings> botStringsDict = new Dictionary<string, IBotStrings>();
             if(filePaths.Count == 0)
             {
                 throw new BotGeneraicException("No json files in directory");
             }
-            botStringsDict = filePaths.ToDictionary(t => t.Key, t => new BotStrings(t.Value));            
+            botStringsDict = filePaths.ToDictionary(t => t.Key, 
+                                                    t => {  
+                                                        IBotStrings botStr = new BotStrings(t.Value);
+                                                        return botStr;
+                                                    });            
             return botStringsDict;
         }
     }

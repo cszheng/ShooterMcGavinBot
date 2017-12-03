@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using NUnit.Framework;
 using Moq;
 using ShooterMcGavinBot.Common;
@@ -8,15 +9,23 @@ namespace Tests.Main
     [TestFixture]
     public class ShooterServiceTests : ServicesTestsBase
     {
-        private BotStrings _mockShooterQuotes;
+        private Dictionary<string, string> _shooterQuotes;
+        private Mock<IBotStrings> _mockBotStrings;
+
 
         public ShooterServiceTests()
         {   
-            _mockShooterQuotes = new BotStrings($"{_testDir}/_testfiles/ShooterQuoteFiles/test.json");
+            //mock some quotes
+            _shooterQuotes = new Dictionary<string, string>();
+            _shooterQuotes.Add("quote_0", "Shooter quote");
+            //mock botstrings object
+            _mockBotStrings = new Mock<IBotStrings>();
+            _mockBotStrings.Setup(x => x.Container)
+                           .Returns(_shooterQuotes);
             //make mock object           
             _mockBotStringsCntr = new Mock<IBotStringsContainer>();
             _mockBotStringsCntr.Setup(x => x.getContainer("shooter"))
-                               .Returns(_mockShooterQuotes);
+                               .Returns(_mockBotStrings.Object);
         }
 
         [Test]
