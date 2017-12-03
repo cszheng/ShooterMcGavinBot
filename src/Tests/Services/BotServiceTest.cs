@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using NUnit.Framework;
 using Moq;
 using ShooterMcGavinBot.Common;
@@ -9,27 +8,9 @@ using ShooterMcGavinBot.Services;
 namespace Tests.Main
 {
     [TestFixture]
-    public class BotServiceTests : TestsBase
+    public class BotServiceTests : ServicesTestsBase
     {
-        private Mock<IBotStringsContainer> _mockBotStringsCntr;
-        private Dictionary<String, String> _commonBotStrings;
-        
-        [SetUp]
-        public void SetUp()
-        {
-            //mock the common botstrings
-            _commonBotStrings = new Dictionary<String, String>();
-            _commonBotStrings.Add("section_breaks", "**--------------------------------------------------------------------------------**");
-            _commonBotStrings.Add("command_header", "__**Commands:**__");
-            _commonBotStrings.Add("command_description", "**{0}** - *{1}*");
-            _commonBotStrings.Add("method_description", "**{0}** - *{1}*");
-            _commonBotStrings.Add("parameter_description", "    __{0}__ - *{1}*");
-            //make mock object           
-            _mockBotStringsCntr = new Mock<IBotStringsContainer>();
-            _mockBotStringsCntr.Setup(x => x.getString("common", It.IsAny<String>()))
-                               .Returns((String x, String y) => { return _commonBotStrings[y]; });
-        }
-
+       
         [Test]
         public void CommandModuleAttributesExist()
         {

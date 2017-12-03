@@ -9,8 +9,7 @@ namespace Tests.Main
     {
         private string _testJsonPath;
 
-        [SetUp]
-        public void Setup()
+        public BotStringsTest()
         {
             _testJsonPath = $"{_testDir}/_testfiles/BotStringsFiles/test.json";
         }

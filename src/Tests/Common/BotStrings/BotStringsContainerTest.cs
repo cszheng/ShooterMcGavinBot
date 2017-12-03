@@ -11,8 +11,7 @@ namespace Tests.Main
     {
         private Mock<IConfiguration> _mockConfig;
 
-        [SetUp]
-        public void Setup()
+        public BotStringsContainerTest()
         {
             _mockConfig = new Mock<IConfiguration>();
             _mockConfig.SetupGet(x => x[It.IsAny<string>()]).Returns($"{_testDir}/_testfiles/BotStringsContainerFiles");
