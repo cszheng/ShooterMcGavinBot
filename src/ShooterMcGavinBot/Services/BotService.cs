@@ -21,7 +21,7 @@ namespace ShooterMcGavinBot.Services
         protected MethodInfo[] GetCommandMethods(Type typeObj)
         {
             //get methods with the Command attribute
-            var mthdLst = typeObj.GetMethods(BindingFlags.Instance | BindingFlags.Public)
+            var mthdLst = typeObj.GetMethods(BindingFlags.Public | BindingFlags.Instance)
                                  .Where((t) => { 
                                      var cmdAttrib = t.GetCustomAttribute(typeof(CommandAttribute)) as CommandAttribute;
                                      return  cmdAttrib != null && 
@@ -70,6 +70,10 @@ namespace ShooterMcGavinBot.Services
             //build response with tempates
             //get methods
             var methods = GetCommandMethods(typeObj);
+            if (methods.Length == 0)
+            {
+                throw new BotGeneraicException($"No commands in type {typeObj.Name}");
+            }
             foreach (var method in methods)
             {
                 //build method description

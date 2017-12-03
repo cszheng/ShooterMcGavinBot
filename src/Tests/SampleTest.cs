@@ -19,17 +19,5 @@ namespace Tests.Main
             //assert that test fail is working
             Assert.That(1 + 2, Is.EqualTo(4));
         }
-
-        [Test]
-        public void ConsoleStreamTest()
-        {   
-            //ARRANGE
-            String outputText = "Hello There";            
-            //ACT
-            Console.WriteLine(outputText);
-            String consoleOut = GetConsoleOutput();
-            //ASSERT
-            Assert.That(consoleOut, Is.EqualTo(outputText));
-        }
     }
 }

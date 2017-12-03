@@ -15,7 +15,7 @@ namespace Tests.Main
         public void Setup()
         {
             _mockConfig = new Mock<IConfiguration>();
-            _mockConfig.SetupGet(x => x[It.IsAny<string>()]).Returns($"{_projectDir}/_testfiles/BotStringsContainerFiles");
+            _mockConfig.SetupGet(x => x[It.IsAny<string>()]).Returns($"{_testDir}/_testfiles/BotStringsContainerFiles");
         }
 
         [Test]
@@ -36,7 +36,7 @@ namespace Tests.Main
         {
             //ARRANCE
             var mockNoDirConfig = new Mock<IConfiguration>(); 
-            mockNoDirConfig.SetupGet(x => x[It.IsAny<string>()]).Returns($"{_projectDir}/_testfiles/BadDirectory");
+            mockNoDirConfig.SetupGet(x => x[It.IsAny<string>()]).Returns($"{_testDir}/_testfiles/BadDirectory");
             //ACT
             TestDelegate delegatedAct = new TestDelegate(() => { new BotStringsContainer(mockNoDirConfig.Object); });
             //ASSERT
@@ -49,7 +49,7 @@ namespace Tests.Main
         {
             //ARRANCE
             var mockNoDirConfig = new Mock<IConfiguration>(); 
-            mockNoDirConfig.SetupGet(x => x[It.IsAny<string>()]).Returns($"{_projectDir}/_testfiles/BotStringsContainerNoJsonFiles");
+            mockNoDirConfig.SetupGet(x => x[It.IsAny<string>()]).Returns($"{_testDir}/_testfiles/BotStringsContainerNoJsonFiles");
             //ACT
             TestDelegate delegatedAct = new TestDelegate(() => { new BotStringsContainer(mockNoDirConfig.Object); });
             //ASSERT

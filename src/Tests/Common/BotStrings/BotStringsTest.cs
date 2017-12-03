@@ -12,7 +12,7 @@ namespace Tests.Main
         [SetUp]
         public void Setup()
         {
-            _testJsonPath = $"{_projectDir}/_testfiles/BotStringsFiles/test.json";
+            _testJsonPath = $"{_testDir}/_testfiles/BotStringsFiles/test.json";
         }
 
         [Test]
@@ -32,7 +32,7 @@ namespace Tests.Main
         public void LoadJsonFileNotExist()
         {
             //ARRANGE
-            _testJsonPath = $"{_projectDir}/_testfiles/BotStringsFiles/BadFile.json";
+            _testJsonPath = $"{_testDir}/_testfiles/BotStringsFiles/BadFile.json";
             //ACT** Delegated action
             TestDelegate delegatedAct = new TestDelegate(() => { new BotStrings(_testJsonPath); });
             //ASSERT

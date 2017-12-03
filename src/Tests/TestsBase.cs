@@ -9,12 +9,14 @@ namespace Tests.Main
         private TextWriter _origConsoleStream;
         private StringWriter _consoleStream; 
 
+        protected String _testDir;
         protected String _projectDir;
 
         public TestsBase() 
         {
             //project directory, where the .csproj is at
-            _projectDir = "../../..";
+            _testDir = "../../..";
+            _projectDir = $"{_testDir}/../ShooterMcGavinBot";
             //redirect console output
             _origConsoleStream = Console.Out; 
             _consoleStream = new StringWriter();
