@@ -13,7 +13,7 @@ using ShooterMcGavinBot.Services;
 
 namespace ShooterMcGavinBot.Main
 {
-    class Program
+    public class Program
     {
         private IConfiguration _config;
         private DiscordSocketConfig _clientConfig;

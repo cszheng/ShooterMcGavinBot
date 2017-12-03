@@ -27,9 +27,13 @@ namespace ShooterMcGavinBot.Services
         {
             //filter type by namespace
             var typeList = _assembly.ExportedTypes
-                                    .Where(t => t.Namespace == type.Namespace )
+                                    .Where(t => t.Namespace == type.Namespace && 
+                                                t.IsSubclassOf(typeof(ModuleBase)))
                                     .ToArray();
-                                    
+            if (typeList.Length == 0)
+            {
+                throw new BotGeneraicException("No command modules in assembly or namespace");
+            }                                    
             var responseBuilder = new StringBuilder();
             if(typeList.Length > 0) 
             {

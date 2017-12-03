@@ -16,7 +16,7 @@ namespace Tests.Main
         }
 
         [Test]
-        public void LoadJsonFileExists()
+        public void LoadJsonFileExist()
         {   
             //ARRANGE
             BotStrings sutBotStrings = new BotStrings(_testJsonPath);     
@@ -41,7 +41,7 @@ namespace Tests.Main
         }
 
         [Test]
-        public void GetStringExists()
+        public void GetStringExist()
         {
             //ARRANGE            
             BotStrings sutBotStrings = new BotStrings(_testJsonPath);     
@@ -56,7 +56,7 @@ namespace Tests.Main
         }
 
         [Test]
-        public void GetStringNotExists()
+        public void GetStringNotExist()
         {
             //ARRANGE            
             BotStrings sutBotStrings = new BotStrings(_testJsonPath);             
