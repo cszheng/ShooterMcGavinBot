@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using Moq;
@@ -23,7 +24,7 @@ namespace Tests.Main
             //ARRANGE
             BotStringsContainer sutBotStringsCntr = new BotStringsContainer(_mockConfig.Object);     
             //ACT
-            var containers = sutBotStringsCntr.Containers;      
+            Dictionary<string, BotStrings> containers = sutBotStringsCntr.Containers;      
             //ASSERT
             Assert.That(containers.Count, Is.EqualTo(2));
             Assert.That(containers.ContainsKey("file1"), Is.EqualTo(true));
@@ -34,12 +35,12 @@ namespace Tests.Main
         public void LoadJsonFileDirectoryNotExist()
         {
             //ARRANCE
-            var mockNoDirConfig = new Mock<IConfiguration>(); 
+            Mock<IConfiguration> mockNoDirConfig = new Mock<IConfiguration>(); 
             mockNoDirConfig.SetupGet(x => x[It.IsAny<string>()]).Returns($"{_testDir}/_testfiles/BadDirectory");
             //ACT
             TestDelegate delegatedAct = new TestDelegate(() => { new BotStringsContainer(mockNoDirConfig.Object); });
             //ASSERT
-            var except = Assert.Throws<BotGeneraicException>(delegatedAct);
+            BotGeneraicException except = Assert.Throws<BotGeneraicException>(delegatedAct);
             Assert.That(except.Message, Is.EqualTo("Directory not found"));
         }
 
@@ -47,12 +48,12 @@ namespace Tests.Main
         public void LoadJsonFileDirectoryNoFiles()
         {
             //ARRANCE
-            var mockNoDirConfig = new Mock<IConfiguration>(); 
+            Mock<IConfiguration> mockNoDirConfig = new Mock<IConfiguration>(); 
             mockNoDirConfig.SetupGet(x => x[It.IsAny<string>()]).Returns($"{_testDir}/_testfiles/BotStringsContainerNoJsonFiles");
             //ACT
             TestDelegate delegatedAct = new TestDelegate(() => { new BotStringsContainer(mockNoDirConfig.Object); });
             //ASSERT
-            var except = Assert.Throws<BotGeneraicException>(delegatedAct);
+            BotGeneraicException except = Assert.Throws<BotGeneraicException>(delegatedAct);
             Assert.That(except.Message, Is.EqualTo("No json files in directory"));
         }
 
@@ -62,8 +63,8 @@ namespace Tests.Main
             //ARRANGE
             BotStringsContainer sutBotStringsCntr = new BotStringsContainer(_mockConfig.Object);     
             //ACT
-            var container1 = sutBotStringsCntr.getContainer("file1");
-            var container2 = sutBotStringsCntr.getContainer("file2");
+            BotStrings container1 = sutBotStringsCntr.getContainer("file1");
+            BotStrings container2 = sutBotStringsCntr.getContainer("file2");
             //ASSERT
             Assert.That(container1.Container.Count, Is.EqualTo(3));
             Assert.That(container2.Container.Count, Is.EqualTo(2));
@@ -77,7 +78,7 @@ namespace Tests.Main
             //ACT** Delegated action
             TestDelegate delegatedAct = new TestDelegate(() => { sutBotStringsCntr.getContainer("file3"); });
             //ASSERT
-            var except = Assert.Throws<BotGeneraicException>(delegatedAct);
+            BotGeneraicException except = Assert.Throws<BotGeneraicException>(delegatedAct);
             Assert.That(except.Message, Is.EqualTo("file3 container not found"));
         }
 
@@ -87,8 +88,8 @@ namespace Tests.Main
             //ARRANGE
             BotStringsContainer sutBotStringsCntr = new BotStringsContainer(_mockConfig.Object);
             //ACT
-            var file1string1 = sutBotStringsCntr.getString("file1", "file1test1");
-            var file2string2 = sutBotStringsCntr.getString("file2", "file2test2");
+            string file1string1 = sutBotStringsCntr.getString("file1", "file1test1");
+            string file2string2 = sutBotStringsCntr.getString("file2", "file2test2");
             //ASSERT
             Assert.That(file1string1, Is.EqualTo("File 1 Test 1"));
             Assert.That(file2string2, Is.EqualTo("File 2 Test 2"));
@@ -102,7 +103,7 @@ namespace Tests.Main
             //ACT** Delegated action
             TestDelegate delegatedAct = new TestDelegate(() => { sutBotStringsCntr.getString("file3","file3test1"); });
             //ASSERT
-            var except = Assert.Throws<BotGeneraicException>(delegatedAct);
+            BotGeneraicException except = Assert.Throws<BotGeneraicException>(delegatedAct);
             Assert.That(except.Message, Is.EqualTo("file3 container not found"));
         }
     }

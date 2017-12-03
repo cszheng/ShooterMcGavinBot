@@ -21,7 +21,7 @@ namespace ShooterMcGavinBot.Modules
         [Command]
         public async Task Default()
         {  
-            var helpEmbed = _helpService.help(this.GetType());
+            Embed helpEmbed = _helpService.help(this.GetType());
             //send the message
             await Context.Channel.SendMessageAsync("", embed: helpEmbed);
         }

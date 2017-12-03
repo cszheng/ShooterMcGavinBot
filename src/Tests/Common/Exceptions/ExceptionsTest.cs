@@ -11,12 +11,12 @@ namespace Tests.Main
         public void ThrowBotGenericException()
         {
             //ARRANGE
-            var exceptMsg = "Exception message";
-            var sutBotExcept = new BotGeneraicException(exceptMsg);
+            string exceptMsg = "Exception message";
+            BotGeneraicException sutBotExcept = new BotGeneraicException(exceptMsg);
             //ACT** Delegated action
             TestDelegate delegatedAct = new TestDelegate(() => { throw sutBotExcept; });
             //ASSERT
-            var except = Assert.Throws<BotGeneraicException>(delegatedAct);
+            BotGeneraicException except = Assert.Throws<BotGeneraicException>(delegatedAct);
             Assert.That(except.Message, Is.EqualTo(exceptMsg));
         }
 
@@ -24,13 +24,13 @@ namespace Tests.Main
         public void ThrowBotGenericExceptionInnerException()
         {   
              //ARRANGE
-            var exceptMsg = "Exception message";
-            var innerExceptMsg = "Inner exception message";
-            var sutBotExcept = new BotGeneraicException(exceptMsg, new Exception(innerExceptMsg));
+            string exceptMsg = "Exception message";
+            string innerExceptMsg = "Inner exception message";
+            BotGeneraicException sutBotExcept = new BotGeneraicException(exceptMsg, new Exception(innerExceptMsg));
             //ACT** Delegated action
             TestDelegate delegatedAct = new TestDelegate(() => { throw sutBotExcept; });
             //ASSERT
-            var except = Assert.Throws<BotGeneraicException>(delegatedAct);
+            BotGeneraicException except = Assert.Throws<BotGeneraicException>(delegatedAct);
             Assert.That(except.InnerException.Message, Is.EqualTo(innerExceptMsg));
         }
     }

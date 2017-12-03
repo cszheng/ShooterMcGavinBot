@@ -2,7 +2,6 @@ using System;
 using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Discord;
 using Discord.WebSocket;
 using Discord.Commands;
@@ -11,7 +10,6 @@ namespace ShooterMcGavinBot.Common
 {
     public class CommandHandler : ICommandHandler
     {
-        //private variables
         protected IServiceProvider _provider;
         protected IConfiguration _config;
         protected Assembly _entryAssembly;
@@ -37,7 +35,7 @@ namespace ShooterMcGavinBot.Common
         //public functions
         public async Task Start() 
         {   
-            var token = _config["discordbot_token"];
+            string token = _config["discordbot_token"];
             //command events
             HookEvents();
             //command modules
@@ -83,7 +81,7 @@ namespace ShooterMcGavinBot.Common
         private async Task HandleUserMessage(SocketUserMessage userMessage)
         {
              // Create a number to track where the prefix ends and the command begins
-            var prefix = _config["command_prefix"].ToCharArray()[0];
+            char prefix = _config["command_prefix"].ToCharArray()[0];
             int argPos = 0;
             // Determine if the message is a command, based on if it starts with 'prefix' or a mention prefix
             if (!(userMessage.HasCharPrefix(prefix, ref argPos) || userMessage.HasMentionPrefix(_client.CurrentUser, ref argPos))) 
@@ -94,7 +92,7 @@ namespace ShooterMcGavinBot.Common
             CommandContext context = new CommandContext(_client, userMessage);
             // Execute the command. (result does not indicate a return value, 
             // rather an object stating if the command executed succesfully)
-            var result = await _commands.ExecuteAsync(context, argPos, _provider);
+            IResult result = await _commands.ExecuteAsync(context, argPos, _provider);
             if (!result.IsSuccess)
             {
                 //command execute failed, throw an exception

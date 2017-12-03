@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 using ShooterMcGavinBot.Common;
 
@@ -20,7 +21,7 @@ namespace Tests.Main
             //ARRANGE
             BotStrings sutBotStrings = new BotStrings(_testJsonPath);     
             //ACT
-            var containers = sutBotStrings.Container;           
+            Dictionary<string, string> containers = sutBotStrings.Container;           
             //ASSERT
             Assert.That(containers["test1"], Is.EqualTo("Test 1"));
             Assert.That(containers["test2"], Is.EqualTo("Test 2"));
@@ -35,7 +36,7 @@ namespace Tests.Main
             //ACT** Delegated action
             TestDelegate delegatedAct = new TestDelegate(() => { new BotStrings(_testJsonPath); });
             //ASSERT
-            var except = Assert.Throws<BotGeneraicException>(delegatedAct);
+            BotGeneraicException except = Assert.Throws<BotGeneraicException>(delegatedAct);
             Assert.That(except.Message, Is.EqualTo("Json file not found"));
         }
 
@@ -62,7 +63,7 @@ namespace Tests.Main
             //ACT** Delegated action
             TestDelegate delegatedAct = new TestDelegate(() => { sutBotStrings.getString("test4"); });
             //ASSERT
-            var except = Assert.Throws<BotGeneraicException>(delegatedAct);
+            BotGeneraicException except = Assert.Throws<BotGeneraicException>(delegatedAct);
             Assert.That(except.Message, Is.EqualTo("test4 botstring not found"));
         }
     }

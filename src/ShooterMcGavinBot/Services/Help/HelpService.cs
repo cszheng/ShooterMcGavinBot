@@ -26,29 +26,29 @@ namespace ShooterMcGavinBot.Services
         public override Embed help(Type type)
         {
             //filter type by namespace
-            var typeList = _assembly.ExportedTypes
-                                    .Where(t => t.Namespace == type.Namespace && 
-                                                t.IsSubclassOf(typeof(ModuleBase)))
-                                    .ToArray();
+            Type[] typeList = _assembly.ExportedTypes
+                                       .Where(t => t.Namespace == type.Namespace && 
+                                                   t.IsSubclassOf(typeof(ModuleBase)))
+                                       .ToArray();
             if (typeList.Length == 0)
             {
                 throw new BotGeneraicException("No command modules in assembly or namespace");
             }                                    
-            var responseBuilder = new StringBuilder();
+            StringBuilder responseBuilder = new StringBuilder();
             if(typeList.Length > 0) 
             {
-                var commandHeader = _botStrings.getString("common", "command_header");
+                string commandHeader = _botStrings.getString("common", "command_header");
                 responseBuilder.Append((commandHeader));
                 responseBuilder.AppendLine();
             }
-            foreach (var typeObj in typeList)
+            foreach (Type typeObj in typeList)
             {   
                 //build command description
                 responseBuilder.Append(BuildCommandDescription(typeObj.GetTypeInfo()));
                 responseBuilder.AppendLine();
             }
             //create the embed
-            var embeded = new EmbedBuilder().WithDescription(responseBuilder.ToString());
+            Embed embeded = new EmbedBuilder().WithDescription(responseBuilder.ToString());
             return embeded;
         }
     }

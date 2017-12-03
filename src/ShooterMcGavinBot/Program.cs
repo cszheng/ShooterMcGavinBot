@@ -52,13 +52,13 @@ namespace ShooterMcGavinBot.Main
 
         public async Task MainAsync() 
         {
-            var services = ConfigureServices();
+            IServiceProvider services = ConfigureServices();
             await services.GetRequiredService<ICommandHandler>().Start();
         }
 
         private string GetEnvironment()
         {
-            var env = Environment.GetEnvironmentVariable("DOTNETCORE_ENVIRONMENT");
+            string env = Environment.GetEnvironmentVariable("DOTNETCORE_ENVIRONMENT");
             if(String.IsNullOrWhiteSpace(env)){
                 env = "Development";
             }
@@ -68,7 +68,7 @@ namespace ShooterMcGavinBot.Main
         private IServiceProvider ConfigureServices()
         {
             //add the services
-            var services = new ServiceCollection();
+            ServiceCollection services = new ServiceCollection();
             //add the objects initialized in the constructor
             services.AddSingleton<IConfiguration>(_config);
             services.AddSingleton<Assembly>(_moduleAssembly);
@@ -86,19 +86,19 @@ namespace ShooterMcGavinBot.Main
 
         private IConfiguration BuildConfig()
         {
-            var env = GetEnvironment();
-            var config = new ConfigurationBuilder()
-                            .SetBasePath(Directory.GetCurrentDirectory())
-                            .AddJsonFile("config.json")
-                            .AddJsonFile($"config.{env}.json")
-                            .Build();
+            string env = GetEnvironment();
+            IConfiguration config = new ConfigurationBuilder()
+                                        .SetBasePath(Directory.GetCurrentDirectory())
+                                        .AddJsonFile("config.json")
+                                        .AddJsonFile($"config.{env}.json")
+                                        .Build();
             return config;
         }
 
         private DiscordSocketConfig BuildClientConfig() 
         {
-            var logLevel = _config["log_level"];
-            var clientConfig = new DiscordSocketConfig();
+            string logLevel = _config["log_level"];
+            DiscordSocketConfig clientConfig = new DiscordSocketConfig();
             switch(logLevel) 
             {
                 case "Critical":

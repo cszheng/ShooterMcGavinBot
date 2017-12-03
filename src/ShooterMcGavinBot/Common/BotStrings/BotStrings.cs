@@ -16,7 +16,7 @@ namespace ShooterMcGavinBot.Common
             {
                 throw new BotGeneraicException("Json file not found");
             }
-            var jsonString = File.ReadAllText(jsonFilePath);
+            string jsonString = File.ReadAllText(jsonFilePath);
             Container = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonString);
             Container.ToImmutableDictionary();
         }

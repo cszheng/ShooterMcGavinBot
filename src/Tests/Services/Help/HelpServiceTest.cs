@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using NUnit.Framework;
 using Moq;
+using Discord;
 using ShooterMcGavinBot.Main;
 using ShooterMcGavinBot.Common;
 using ShooterMcGavinBot.Modules;
@@ -24,12 +25,12 @@ namespace Tests.Main
         public void CommandsInNamespaceExist()
         {
             //ARRANGE
-            var sutHelpService = new HelpService(_projectAssembly, _mockBotStringsCntr.Object);
+            HelpService sutHelpService = new HelpService(_projectAssembly, _mockBotStringsCntr.Object);
             //ACT
-            var embedObj = sutHelpService.help(typeof(HelpModule));                   
+            Embed embedObj = sutHelpService.help(typeof(HelpModule));                   
             //ASSERT
             //get the description and split by newline
-            var embedDescLst = embedObj.Description.Split("\n");
+            string[] embedDescLst = embedObj.Description.Split("\n");
             //should have the module's method attributes text
             Assert.That(embedDescLst.Length, Is.GreaterThanOrEqualTo(3));
             Assert.That(embedDescLst[0].Contains("Commands:"), Is.EqualTo(true));
@@ -41,11 +42,11 @@ namespace Tests.Main
         public void CommandsInNamespaceNotExist()
         {
             //ARRANGE
-            var sutHelpService = new HelpService(_projectAssembly, _mockBotStringsCntr.Object);
+            HelpService sutHelpService = new HelpService(_projectAssembly, _mockBotStringsCntr.Object);
             //ACT** Delegated action
             TestDelegate delegatedAct = new TestDelegate(() => { sutHelpService.help(typeof(HelpServiceTests)); });
             //ASSERT      
-            var except = Assert.Throws<BotGeneraicException>(delegatedAct);
+            BotGeneraicException except = Assert.Throws<BotGeneraicException>(delegatedAct);
             Assert.That(except.Message, Is.EqualTo("No command modules in assembly or namespace"));
         }
     }

@@ -28,9 +28,9 @@ namespace Tests.Main
         public void ShooterRoastWithoutMention()
         {
             //ARRANGE
-            var sutShooterService = new ShooterService(_mockBotStringsCntr.Object);
+            ShooterService sutShooterService = new ShooterService(_mockBotStringsCntr.Object);
             //ACT
-            var roastString = sutShooterService.roast();                   
+            string roastString = sutShooterService.roast();                   
             //ASSERT
             Assert.That(roastString, Is.EqualTo($"@here Shooter quote"));                 
         }
@@ -39,11 +39,11 @@ namespace Tests.Main
         public void ShooterRoastWithMention()
         {
             //ARRANGE
-            var sutShooterService = new ShooterService(_mockBotStringsCntr.Object);
+            ShooterService sutShooterService = new ShooterService(_mockBotStringsCntr.Object);
             //ACT
-            var roastString = sutShooterService.roast("@someuser");                   
+            string roastString = sutShooterService.roast("@someuser");                   
             //ASSERT
-            var quoteStr =_mockBotStringsCntr.Object.getString("shooter", "");
+            string quoteStr =_mockBotStringsCntr.Object.getString("shooter", "");
             Assert.That(roastString, Is.EqualTo($"@someuser Shooter quote"));    
         }
     }

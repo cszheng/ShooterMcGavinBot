@@ -37,8 +37,8 @@ namespace ShooterMcGavinBot.Common
         
         private Dictionary<string, string> getFilePaths()
         {
-            var filePaths = new Dictionary<string, string>();
-            var botStrDir =  _config["bot_strings_path"];
+            Dictionary<string, string> filePaths = new Dictionary<string, string>();
+            string botStrDir =  _config["bot_strings_path"];
             if(!Directory.Exists(botStrDir)) 
             {
                 throw new BotGeneraicException("Directory not found");
@@ -52,8 +52,8 @@ namespace ShooterMcGavinBot.Common
 
         private Dictionary<string, BotStrings> buildContainer()
         {
-            var filePaths = getFilePaths();
-            var botStringsDict = new Dictionary<string, BotStrings>();
+            Dictionary<string, string> filePaths = getFilePaths();
+            Dictionary<string, BotStrings> botStringsDict = new Dictionary<string, BotStrings>();
             if(filePaths.Count == 0)
             {
                 throw new BotGeneraicException("No json files in directory");

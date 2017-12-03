@@ -1,4 +1,5 @@
 using System;
+using Discord;
 using NUnit.Framework;
 using Moq;
 using ShooterMcGavinBot.Common;
@@ -15,9 +16,9 @@ namespace Tests.Main
         public void CommandModuleAttributesExist()
         {
             //ARRANGE
-            var sutBotSvc = new BotService(_mockBotStringsCntr.Object);
+            BotService sutBotSvc = new BotService(_mockBotStringsCntr.Object);
             //ACT
-            var embedObj = sutBotSvc.help(typeof(ShooterModule));            
+            Embed embedObj = sutBotSvc.help(typeof(ShooterModule));            
             //ASSERT
             //should have the module's method attributes text
             Assert.That(embedObj.Description.Contains("Shows options of shooter command."), Is.EqualTo(true));      
@@ -29,12 +30,12 @@ namespace Tests.Main
         public void CommandModuleAttributesNotExist()
         {
             //ARRANGE
-            var sutBotSvc = new BotService(_mockBotStringsCntr.Object);
-            var typeObj = typeof(HelpModule);
+            BotService sutBotSvc = new BotService(_mockBotStringsCntr.Object);
+            Type typeObj = typeof(HelpModule);
             //ACT** Delegated action
             TestDelegate delegatedAct = new TestDelegate(() => { sutBotSvc.help(typeObj); });
             //ASSERT
-            var except = Assert.Throws<BotGeneraicException>(delegatedAct);
+            BotGeneraicException except = Assert.Throws<BotGeneraicException>(delegatedAct);
             Assert.That(except.Message, Is.EqualTo($"No commands in type {typeObj.Name}"));
         }
     }
