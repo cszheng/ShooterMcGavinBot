@@ -8,7 +8,6 @@ using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 using ShooterMcGavinBot.Common;
-using ShooterMcGavinBot.Modules;
 using ShooterMcGavinBot.Services;
 
 namespace ShooterMcGavinBot.Main

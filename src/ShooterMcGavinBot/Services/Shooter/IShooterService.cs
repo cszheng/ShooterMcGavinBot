@@ -1,5 +1,3 @@
-using Discord;
-
 namespace ShooterMcGavinBot.Services 
 {
     public interface IShooterService : IBotService

@@ -1,8 +1,5 @@
-using System;
-using System.Collections.Generic;
 using System.Reflection;
 using NUnit.Framework;
-using Moq;
 using Discord;
 using ShooterMcGavinBot.Main;
 using ShooterMcGavinBot.Common;

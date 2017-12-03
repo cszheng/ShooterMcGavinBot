@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 using ShooterMcGavinBot.Common;
@@ -46,9 +45,9 @@ namespace Tests.Main
             //ARRANGE            
             BotStrings sutBotStrings = new BotStrings(_testJsonPath);     
             //ACT
-            String test1String = sutBotStrings.getString("test1");
-            String test2String = sutBotStrings.getString("test2");
-            String test3String = sutBotStrings.getString("test3");
+            string test1String = sutBotStrings.getString("test1");
+            string test2String = sutBotStrings.getString("test2");
+            string test3String = sutBotStrings.getString("test3");
             //ASSERT
             Assert.That(test1String, Is.EqualTo("Test 1"));
             Assert.That(test2String, Is.EqualTo("Test 2"));

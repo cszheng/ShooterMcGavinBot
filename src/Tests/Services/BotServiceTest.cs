@@ -1,7 +1,7 @@
 using System;
-using Discord;
 using NUnit.Framework;
 using Moq;
+using Discord;
 using ShooterMcGavinBot.Common;
 using ShooterMcGavinBot.Modules;
 using ShooterMcGavinBot.Services;

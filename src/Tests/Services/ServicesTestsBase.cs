@@ -1,8 +1,6 @@
-using System.IO;
 using System.Collections.Generic;
 using Moq;
 using ShooterMcGavinBot.Common;
-
 
 namespace Tests.Main
 {

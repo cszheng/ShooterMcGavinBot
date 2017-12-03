@@ -1,5 +1,3 @@
-using System;
-using System.Reflection;
 using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
@@ -22,7 +20,6 @@ namespace ShooterMcGavinBot.Modules
         public async Task Default()
         {  
             Embed helpEmbed = _helpService.help(this.GetType());
-            //send the message
             await Context.Channel.SendMessageAsync("", embed: helpEmbed);
         }
     }

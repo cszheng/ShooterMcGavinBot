@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
@@ -34,11 +33,12 @@ namespace ShooterMcGavinBot.Modules
         {   
             if (user != null) 
             {               
-                await Context.Channel.SendMessageAsync(_shooterService.roast(user.Mention));
+                string roastMessage = _shooterService.roast(user.Mention);
+                await Context.Channel.SendMessageAsync(roastMessage);
             }
             else 
-            {
-                await Context.Channel.SendMessageAsync(_shooterService.roast());
+            {   string roastMessage = _shooterService.roast();
+                await Context.Channel.SendMessageAsync(roastMessage);
             }
         }
     }
