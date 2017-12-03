@@ -8,8 +8,8 @@ namespace Tests.Main
         private TextWriter _origConsoleStream;
         private StringWriter _consoleStream; 
 
-        protected String _testDir;
-        protected String _projectDir;
+        protected string _testDir;
+        protected string _projectDir;
 
         public TestsBase() 
         {
@@ -30,7 +30,7 @@ namespace Tests.Main
         protected string GetConsoleOutput() 
         {
             _consoleStream.Flush();
-            String result = _consoleStream.GetStringBuilder().ToString().TrimEnd('\r', '\n');
+            string result = _consoleStream.GetStringBuilder().ToString().TrimEnd('\r', '\n');
             _consoleStream.GetStringBuilder().Clear();
             return result;
         }
