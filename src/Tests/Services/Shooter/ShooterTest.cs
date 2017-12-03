@@ -12,7 +12,7 @@ namespace Tests.Main
 
         public ShooterServiceTests()
         {   
-            _mockShooterQuotes = new BotStrings($"{_testDir}/_testfiles/ShooterQUoteFiles/test.json");
+            _mockShooterQuotes = new BotStrings($"{_testDir}/_testfiles/ShooterQuoteFiles/test.json");
             //make mock object           
             _mockBotStringsCntr = new Mock<IBotStringsContainer>();
             _mockBotStringsCntr.Setup(x => x.getContainer("shooter"))
