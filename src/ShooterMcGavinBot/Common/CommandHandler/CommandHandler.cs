@@ -10,13 +10,15 @@ namespace ShooterMcGavinBot.Common
 {
     public class CommandHandler : ICommandHandler
     {
+        //private members
         protected IServiceProvider _provider;
         protected IConfiguration _config;
         protected Assembly _entryAssembly;
         protected DiscordSocketClient _client;
         protected CommandService _commands;
         protected ILogger _logger;
-        //constructor
+
+        //constructors
         public CommandHandler(IServiceProvider provider, 
                               IConfiguration config,
                               Assembly entryAssembly,
@@ -46,6 +48,7 @@ namespace ShooterMcGavinBot.Common
             await Task.Delay(-1);
         }
         
+        //private functions
         private void HookEvents()
         {
             //hook the logger

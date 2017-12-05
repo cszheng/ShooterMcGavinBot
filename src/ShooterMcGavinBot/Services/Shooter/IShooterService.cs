@@ -1,7 +1,11 @@
+using System.Threading.Tasks;
+using Discord;
+using Discord.Commands;
+
 namespace ShooterMcGavinBot.Services 
 {
     public interface IShooterService : IBotService
     {
-        string roast(string userMention = null); 
+        Task roast(ICommandContext commandContext, IUser user); 
     }
 }

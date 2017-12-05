@@ -10,9 +10,10 @@ namespace ShooterMcGavinBot.Services
 {
     public class HelpService: BotService, IHelpService
     {   
+        //private members
         protected Assembly _assembly;        
 
-        //constructor
+        //constructors
         public HelpService(Assembly assembly, 
                            IBotStringsContainer botStrings) 
         : base(botStrings)
@@ -20,8 +21,8 @@ namespace ShooterMcGavinBot.Services
             _assembly = assembly;
         }
         
-        //public functions
-        public override Embed help(Type type)
+        //private functions
+        protected override Embed BuildHelpEmbed(Type type)
         {
             //filter type by namespace
             Type[] typeList = _assembly.ExportedTypes

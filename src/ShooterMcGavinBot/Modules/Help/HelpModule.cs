@@ -9,18 +9,20 @@ namespace ShooterMcGavinBot.Modules
     [Group("help"), Summary("Gives a list of all commands available in this bot.")]
     public class HelpModule : ModuleBase
     {       
+        //private members
         protected IHelpService _helpService;
 
+        //constructors
         public HelpModule(IHelpService helpService)
         {
             _helpService = helpService;
         }
         
+        //public functions
         [Command]
         public async Task Default()
         {  
-            Embed helpEmbed = _helpService.help(this.GetType());
-            await Context.Channel.SendMessageAsync("", embed: helpEmbed);
+            await _helpService.help(Context, this.GetType());
         }
     }
 }

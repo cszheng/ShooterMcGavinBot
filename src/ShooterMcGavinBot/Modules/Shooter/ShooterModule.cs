@@ -9,13 +9,16 @@ namespace ShooterMcGavinBot.Modules
     [Group("shooter"), Summary("Your one and only Shooter McGavin.")]
     public class ShooterModule : ModuleBase
     {
+        //private members
         protected IShooterService _shooterService;
 
+        //constructors
         public ShooterModule(IShooterService shooterService)
         {
             _shooterService = shooterService;
         }
         
+        //public functions
         [Command()]
         public async Task Default()
         {
@@ -25,21 +28,13 @@ namespace ShooterMcGavinBot.Modules
         [Command("help"), Summary("Shows options of shooter command.")]
         public async Task help()
         {
-            await Context.Channel.SendMessageAsync("", embed: _shooterService.help(this.GetType()));
+            await _shooterService.help(Context, this.GetType());
         }        
         
         [Command("roast"), Summary("Shooter will roast someone.")]
         public async Task roast([Summary("(optional) The person that Shooter will roast. [@mention]")] IUser user = null)
         {   
-            if (user != null) 
-            {               
-                string roastMessage = _shooterService.roast(user.Mention);
-                await Context.Channel.SendMessageAsync(roastMessage);
-            }
-            else 
-            {   string roastMessage = _shooterService.roast();
-                await Context.Channel.SendMessageAsync(roastMessage);
-            }
+            await _shooterService.roast(Context, user);
         }
     }
 }

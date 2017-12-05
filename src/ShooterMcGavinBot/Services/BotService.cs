@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
 using ShooterMcGavinBot.Common;
@@ -10,13 +11,22 @@ namespace ShooterMcGavinBot.Services
 {
     public class BotService: IBotService
     {   
-        protected IBotStringsContainer _botStrings;    
+        //private members
+        protected IBotStringsContainer _botStrings;
 
+        //constructors
         public BotService(IBotStringsContainer botStrings)
         {
             _botStrings = botStrings;
         }
-        
+
+        //public functions
+        public async Task help(ICommandContext cmdCntx, Type typeObj)
+        {
+            await cmdCntx.Channel.SendMessageAsync("", embed: BuildHelpEmbed(typeObj));
+        }
+
+        //private functions        
         protected MethodInfo[] GetCommandMethods(Type typeObj)
         {
             //get methods with the Command attribute
@@ -62,7 +72,7 @@ namespace ShooterMcGavinBot.Services
             return String.Format(cmdDescTmpl, grpAttrib.Prefix, sumAttrib.Text);
         }
 
-        public virtual Embed help(Type typeObj)
+        protected virtual Embed BuildHelpEmbed(Type typeObj)
         {
             string sectBreaks = _botStrings.getString("common", "section_breaks");
             StringBuilder responseBuilder = new StringBuilder();

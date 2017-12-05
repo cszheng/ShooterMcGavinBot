@@ -7,8 +7,10 @@ namespace ShooterMcGavinBot.Common
 {
     public class BotStrings : IBotStrings
     {
+        //public properties
         public Dictionary<string, string> Container { get; private set; }
         
+        //constructors
         public BotStrings(string jsonFilePath)
         {
             if(!File.Exists(jsonFilePath)) 
@@ -20,6 +22,7 @@ namespace ShooterMcGavinBot.Common
             Container.ToImmutableDictionary();
         }
 
+        //public functions
         public string getString(string key)
         {
             if (!Container.ContainsKey(key)) 

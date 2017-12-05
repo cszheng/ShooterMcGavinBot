@@ -14,12 +14,14 @@ namespace ShooterMcGavinBot.Main
 {
     public class Program
     {
+        //private members
         private IConfiguration _config;
         private DiscordSocketConfig _clientConfig;
         private Assembly _moduleAssembly;        
         private DiscordSocketClient _client;
         private CommandService _commandService; 
 
+        //constructors
         private Program()
         {
             //load configurations 
@@ -32,6 +34,7 @@ namespace ShooterMcGavinBot.Main
             _commandService = new CommandService();
         }
 
+        //public functions
         public static void Main(string[] args)
         {   
             Console.WriteLine("Starting Shooter McGavin Bot.");
@@ -55,6 +58,7 @@ namespace ShooterMcGavinBot.Main
             await services.GetRequiredService<ICommandHandler>().Start();
         }
 
+        //private functions
         private string GetEnvironment()
         {
             string env = Environment.GetEnvironmentVariable("DOTNETCORE_ENVIRONMENT");

@@ -1,7 +1,8 @@
 using System;
-using Discord;
+using System.Threading.Tasks;
+using Discord.Commands;
 
 public interface IBotService 
 {
-    Embed help(Type type);
+    Task help(ICommandContext commandContext, Type type);
 }

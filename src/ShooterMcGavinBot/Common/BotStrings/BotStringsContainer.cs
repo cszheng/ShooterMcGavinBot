@@ -9,10 +9,13 @@ namespace ShooterMcGavinBot.Common
 {
     public class BotStringsContainer: IBotStringsContainer
     {
+        //private members
         protected IConfiguration _config;
 
+        //public properties
         public Dictionary<string, IBotStrings> Containers { get; private set; }
         
+        //constructors
         public BotStringsContainer(IConfiguration config)
         {
             _config = config;
@@ -20,6 +23,7 @@ namespace ShooterMcGavinBot.Common
             Containers.ToImmutableDictionary();
         }
 
+        //public functions
         public IBotStrings getContainer(string containerKey)
         {
             if (!Containers.ContainsKey(containerKey)) 
@@ -34,6 +38,7 @@ namespace ShooterMcGavinBot.Common
             return getContainer(containerKey).getString(stringKey);
         }
         
+        //private functions
         private Dictionary<string, string> getFilePaths()
         {
             Dictionary<string, string> filePaths = new Dictionary<string, string>();

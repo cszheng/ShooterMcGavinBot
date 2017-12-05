@@ -6,6 +6,7 @@ namespace ShooterMcGavinBot.Common
 {
     public class Logger: ILogger
     {
+        //public functions
         public Task Log(LogMessage message)
         {           
             Log(message.ToString());
