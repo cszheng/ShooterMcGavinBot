@@ -7,18 +7,12 @@ namespace Tests.Main
     [TestFixture]
     public class BotStringsTest : TestsBase
     {
-        private string _testJsonPath;
-
-        public BotStringsTest()
-        {
-            _testJsonPath = $"{_testDir}/_testfiles/BotStringsFiles/test.json";
-        }
-
         [Test]
         public void LoadJsonFileExist()
         {   
             //ARRANGE
-            BotStrings sutBotStrings = new BotStrings(_testJsonPath);     
+            string testJsonPath = $"{_testDir}/_testfiles/BotStringsFiles/test.json";
+            BotStrings sutBotStrings = new BotStrings(testJsonPath);     
             //ACT
             Dictionary<string, string> containers = sutBotStrings.Container;           
             //ASSERT
@@ -31,9 +25,9 @@ namespace Tests.Main
         public void LoadJsonFileNotExist()
         {
             //ARRANGE
-            _testJsonPath = $"{_testDir}/_testfiles/BotStringsFiles/BadFile.json";
+            string testJsonPath = $"{_testDir}/_testfiles/BotStringsFiles/BadFile.json";
             //ACT** Delegated action
-            TestDelegate delegatedAct = new TestDelegate(() => { new BotStrings(_testJsonPath); });
+            TestDelegate delegatedAct = new TestDelegate(() => { new BotStrings(testJsonPath); });
             //ASSERT
             BotGeneraicException except = Assert.Throws<BotGeneraicException>(delegatedAct);
             Assert.That(except.Message, Is.EqualTo("Json file not found"));
@@ -42,8 +36,9 @@ namespace Tests.Main
         [Test]
         public void GetStringExist()
         {
-            //ARRANGE            
-            BotStrings sutBotStrings = new BotStrings(_testJsonPath);     
+            //ARRANGE
+            string testJsonPath = $"{_testDir}/_testfiles/BotStringsFiles/test.json";            
+            BotStrings sutBotStrings = new BotStrings(testJsonPath);     
             //ACT
             string test1String = sutBotStrings.getString("test1");
             string test2String = sutBotStrings.getString("test2");
@@ -57,8 +52,9 @@ namespace Tests.Main
         [Test]
         public void GetStringNotExist()
         {
-            //ARRANGE            
-            BotStrings sutBotStrings = new BotStrings(_testJsonPath);             
+            //ARRANGE
+            string testJsonPath = $"{_testDir}/_testfiles/BotStringsFiles/test.json";             
+            BotStrings sutBotStrings = new BotStrings(testJsonPath);             
             //ACT** Delegated action
             TestDelegate delegatedAct = new TestDelegate(() => { sutBotStrings.getString("test4"); });
             //ASSERT
