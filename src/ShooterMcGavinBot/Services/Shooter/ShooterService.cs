@@ -33,12 +33,27 @@ namespace ShooterMcGavinBot.Services
             await cmdCntx.Channel.SendMessageAsync($"{mention} {quote}");            
         }
 
+        public async Task pewpew(ICommandContext cmdCntx)
+        {
+            Embed pewPewEmbed = buildPewPewEmbed();
+            await cmdCntx.Channel.SendMessageAsync("", embed: pewPewEmbed);       
+        }
+
         //private functions
         private string getRandomRoast()
         {
             int randIndx = new Random().Next(0, _roasts.Length);
             string retQuote = _roasts[randIndx];
             return retQuote;
+        }
+
+        private Embed buildPewPewEmbed()
+        {
+            string pewpewtitle = _botStrings.getString("shooter", "pewpewtitle");
+            string pewpewurl = _botStrings.getString("shooter", "pewpewurl");
+            Embed embeded = new EmbedBuilder().WithTitle(pewpewtitle)
+                                              .WithImageUrl(pewpewurl);
+            return embeded;
         }
     }
 }

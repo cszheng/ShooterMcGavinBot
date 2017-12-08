@@ -1,5 +1,5 @@
 {
-  "log_level": "info",
+  "log_level": "debug",
   "command_prefix": "~",
   "bot_strings_path": "_botstrings"
 }

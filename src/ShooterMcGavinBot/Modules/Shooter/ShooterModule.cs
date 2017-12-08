@@ -36,5 +36,11 @@ namespace ShooterMcGavinBot.Modules
         {   
             await _shooterService.roast(Context, user);
         }
+
+        [Command("pewpew"), Summary("Pew Pew Pew!")]
+        public async Task pewpew()
+        {   
+            await _shooterService.pewpew(Context);
+        }
     }
 }
