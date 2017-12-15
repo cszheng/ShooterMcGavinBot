@@ -5,9 +5,9 @@ branches:
   only:
   - master
 env: 
-  RELEASE=false 
+  RELEASE=true 
   RELEASE_MAJOR=0 
-  RELEASE_MINOR=3 
+  RELEASE_MINOR=4 
   RELEASE_BUGFIXES=0
 before_install:
   # unencrypt secrets, extract, and move them
