@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using Discord;
 using Discord.Commands;
 using ShooterMcGavinBot.Common;
@@ -12,9 +13,11 @@ namespace ShooterMcGavinBot.Services
     {   
         //private members
         protected string[] _roasts;
+        protected string _creatorUserName;
 
         //constructors
-        public ShooterService(IBotStringsContainer botString)
+        public ShooterService(IConfiguration config,
+                              IBotStringsContainer botString)
         : base(botString) 
         {   
             //init roasts
@@ -23,13 +26,57 @@ namespace ShooterMcGavinBot.Services
                                  .Where(t => new Regex(@"quote_\d+").Match(t.Key).Success)
                                  .Select(t => t.Value)
                                  .ToArray();
+            //set creator name
+            _creatorUserName = config["creator_username"];
         }
 
         //public functions
         public async Task roast(ICommandContext cmdCntx, IUser user)
         {
             string quote = getRandomRoast();
-            string mention = (user != null) ? user.Mention : "@here"; 
+            IUser userToRoast;            
+            //determine who to roast
+            if (user == null)
+            {
+                userToRoast = null; //roast noone
+            }
+            else 
+            {
+               if (cmdCntx.User.Username == _creatorUserName)
+               {
+                   //conditions for when creator is roasting
+                   if(user.Id == cmdCntx.Client.CurrentUser.Id) 
+                   {
+                       //creator cannot roast bot, so roast nothing
+                       userToRoast = null;
+                   }
+                   else 
+                   {
+                       //creator roast whoever else, including self
+                       userToRoast = user;                       
+                   }
+               }
+               else 
+               {
+                   //regular user roast
+                   if(user.Id == cmdCntx.Client.CurrentUser.Id)
+                   {
+                       //regular user cannot roast bot, roast self isntead...
+                       userToRoast = cmdCntx.User;
+                   }
+                   else if (user.Username == _creatorUserName)
+                   {
+                       //regular user cannot roast creator, roast self instead
+                       userToRoast = cmdCntx.User;
+                   }
+                   else 
+                   {
+                       //regular user roast whoever
+                       userToRoast = user;
+                   }
+               }
+            }
+            string mention = userToRoast != null ? userToRoast.Mention : "@here";
             await cmdCntx.Channel.SendMessageAsync($"{mention} {quote}");            
         }
 

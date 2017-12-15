@@ -1,5 +1,6 @@
 {
   "log_level": "debug",
   "command_prefix": "~",
-  "bot_strings_path": "_botstrings"
+  "bot_strings_path": "_botstrings",
+  "creator_username": "baretertl"
 }
