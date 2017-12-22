@@ -35,25 +35,30 @@ namespace ShooterMcGavinBot.Main
         }
 
         //public functions
-        public static void Main(string[] args)
+        public static int Main(string[] args)
         {   
             try 
             {
+                Console.WriteLine("Starting Shooter McGavin Bot.");
+                Console.WriteLine("Press CTRL+C to exit.");
                 new Program().MainAsync()
                              .GetAwaiter()
                              .GetResult();
+                Console.WriteLine("Stopping Shooter McGavin Bot.");
             }
-            catch (BotGeneraicException e)
+            catch (Exception e)
             {
-                Console.WriteLine(e.Message);
-                return;                   
-            }                     
+                Console.WriteLine($"An error occured, terminating program. Error: ${e.Message}");
+                return 1;                   
+            }
+            return 0;                     
         }
 
         public async Task MainAsync() 
         {
             IServiceProvider services = ConfigureServices();
             await services.GetRequiredService<ICommandHandler>().Start();
+            await services.GetRequiredService<ICommandHandler>().WaitForStop();
         }
 
         //private functions

@@ -10,7 +10,7 @@ using Discord.Commands;
 namespace ShooterMcGavinBot.Common
 {
     public class CommandHandler : ICommandHandler
-    {
+    {       
         //private members
         protected IServiceProvider _provider;
         protected IConfiguration _config;
@@ -18,6 +18,7 @@ namespace ShooterMcGavinBot.Common
         protected DiscordSocketClient _client;
         protected CommandService _commands;
         protected ILogger _logger;
+        private CancellationTokenSource _cancelTokenSoruce;
 
         //constructors
         public CommandHandler(IServiceProvider provider, 
@@ -33,13 +34,13 @@ namespace ShooterMcGavinBot.Common
             _client = client;
             _commands = commands;
             _logger = logger;
+            //create a cancel token to be used later
+            _cancelTokenSoruce = new CancellationTokenSource();
         }
 
         //public functions
         public async Task Start() 
         {        
-            Console.WriteLine("Starting Shooter McGavin Bot.");
-            Console.WriteLine("Press CTRL+C to exit.");
             //command events
             HookEvents();
             //command modules
@@ -52,10 +53,36 @@ namespace ShooterMcGavinBot.Common
             await _client.SetGameAsync($"{prefix}help");
             //start client
             await _client.StartAsync();        
-            Console.WriteLine("Stopping Shooter McGavin Bot.");
         }
+
+        public async Task WaitForStop()
+        {
+            //hook onto cancel event
+            Console.CancelKeyPress += new ConsoleCancelEventHandler(Stop);
+            try 
+            {    //wait forever until canceled
+                await Task.Delay(-1, _cancelTokenSoruce.Token);     
+            }
+            catch (TaskCanceledException)
+            {
+                return;
+            }
+            return;                  
+        }        
         
         //private functions
+        private void Stop(Object sender, ConsoleCancelEventArgs args)
+        {
+            //stop the client
+            _client.StopAsync().GetAwaiter().GetResult();
+            //logout the client
+            _client.LogoutAsync().GetAwaiter().GetResult();           
+            //cancel the waitforever task
+            _cancelTokenSoruce.Cancel();
+            //trap the cancel event
+            args.Cancel = true;
+        }
+
         private void HookEvents()
         {
             //hook the logger
@@ -108,6 +135,6 @@ namespace ShooterMcGavinBot.Common
                 //command execute failed, throw an exception
                 throw new BotGeneraicException(result.ErrorReason);
             }                
-        }        
+        }      
     }    
 }

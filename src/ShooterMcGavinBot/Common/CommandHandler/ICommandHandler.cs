@@ -5,5 +5,6 @@ namespace ShooterMcGavinBot.Common
     public interface ICommandHandler
     {
         Task Start();
+        Task WaitForStop();
     }
 }
