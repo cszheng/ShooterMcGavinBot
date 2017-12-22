@@ -5,7 +5,7 @@ branches:
   only:
   - master
 env: 
-  RELEASE=true 
+  RELEASE=false 
   RELEASE_MAJOR=0 
   RELEASE_MINOR=5 
   RELEASE_BUGFIXES=0
