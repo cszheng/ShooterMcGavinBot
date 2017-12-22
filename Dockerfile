@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.0.0-sdk
+FROM microsoft/dotnet:2.0.4-sdk-2.1.3
 
 #create directory and copy source
 RUN mkdir /src
