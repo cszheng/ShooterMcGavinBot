@@ -37,8 +37,6 @@ namespace ShooterMcGavinBot.Main
         //public functions
         public static void Main(string[] args)
         {   
-            Console.WriteLine("Starting Shooter McGavin Bot.");
-            Console.WriteLine("Press CTRL+C to exit.");
             try 
             {
                 new Program().MainAsync()

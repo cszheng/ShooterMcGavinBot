@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Discord;
@@ -36,16 +37,22 @@ namespace ShooterMcGavinBot.Common
 
         //public functions
         public async Task Start() 
-        {   
-            string token = _config["discordbot_token"];
+        {        
+            Console.WriteLine("Starting Shooter McGavin Bot.");
+            Console.WriteLine("Press CTRL+C to exit.");
             //command events
             HookEvents();
             //command modules
             await AddCommandModules();
-            //start the client          
+            //login with token
+            string token = _config["discordbot_token"];
             await _client.LoginAsync(TokenType.Bot, token);
-            await _client.StartAsync();
-            await Task.Delay(-1);
+            //set game status
+            string prefix = _config["command_prefix"];
+            await _client.SetGameAsync($"{prefix}help");
+            //start client
+            await _client.StartAsync();        
+            Console.WriteLine("Stopping Shooter McGavin Bot.");
         }
         
         //private functions
